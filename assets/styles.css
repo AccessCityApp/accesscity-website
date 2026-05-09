@@ -8,7 +8,7 @@
     --accent-strong: #2c0990;
     --accent-soft: #ede8ff;
     --line: #e2ddf5;
-    --focus: #f5a623;
+    --focus: #8a4b00;
     --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
     --font-body: "Source Sans 3", "Noto Sans", "Helvetica Neue", sans-serif;
     --font-display: "Fraunces", "Georgia", serif;
@@ -56,6 +56,7 @@ header {
     backdrop-filter: blur(12px);
     background: rgba(255, 255, 255, 0.8);
     border-bottom: 1px solid var(--line);
+    animation: navSlideDown 0.45s ease forwards;
 }
 
 .wrap {
@@ -103,6 +104,23 @@ nav a {
     color: var(--muted);
     font-weight: 600;
     text-decoration: none;
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.22s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
 }
 
 nav a:hover {
@@ -230,6 +248,12 @@ section {
     border-radius: 16px;
     background: var(--surface);
     box-shadow: var(--shadow);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.metric:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 22px 48px rgba(15, 23, 42, 0.12);
 }
 
 .metric-number {
@@ -256,11 +280,170 @@ section {
     padding: 22px;
     border: 1px solid var(--line);
     box-shadow: var(--shadow);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 28px 56px rgba(15, 23, 42, 0.13);
 }
 
 .card h3 {
     margin-top: 0;
     font-size: 20px;
+}
+
+.higgs-card {
+    border: 1px solid var(--line);
+    background: var(--surface);
+}
+
+.higgs-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.85fr);
+    gap: 28px;
+    align-items: center;
+}
+
+.higgs-copy {
+    min-width: 0;
+}
+
+.higgs-card h2 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    font-size: 20px;
+    color: var(--ink);
+    line-height: 1.5;
+}
+
+.higgs-card p {
+    margin: 0 0 14px 0;
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+.higgs-card p strong {
+    color: var(--accent-strong);
+    font-weight: 700;
+}
+
+.higgs-card p:last-of-type {
+    margin-bottom: 18px;
+}
+
+.higgs-card a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    color: var(--accent);
+    transition: all 0.2s ease;
+}
+
+.higgs-card a:hover {
+    color: var(--accent-strong);
+    transform: translateX(2px);
+}
+
+.higgs-card a:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+}
+
+.higgs-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    padding: 8px 0;
+}
+
+.higgs-badge {
+    position: relative;
+    width: min(100%, 280px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: flex;
+    align-items: stretch;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(59, 13, 181, 0.12), rgba(59, 13, 181, 0) 68%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(237, 232, 255, 0.96));
+    border: 1px solid rgba(59, 13, 181, 0.14);
+    box-shadow: 0 20px 44px rgba(59, 13, 181, 0.12);
+    overflow: hidden;
+    animation: floatBadge 5s ease-in-out infinite;
+}
+
+.higgs-badge__half {
+    width: 50%;
+    display: grid;
+    place-items: center;
+    padding: 36px 22px;
+}
+
+.higgs-badge__half--accesscity {
+    background: linear-gradient(130deg, rgba(255, 255, 255, 0.98), rgba(243, 241, 252, 0.95));
+}
+
+.higgs-badge__half--higgs {
+    background: linear-gradient(230deg, rgba(237, 232, 255, 0.98), rgba(226, 218, 255, 0.9));
+}
+
+.higgs-badge__half img {
+    width: 100%;
+    max-width: 132px;
+    max-height: 132px;
+    object-fit: contain;
+    filter: saturate(1.02) contrast(1.02);
+}
+
+.higgs-badge__half--accesscity img {
+    transform: scale(1.08);
+}
+
+.higgs-badge__half--higgs img {
+    transform: scale(0.9);
+}
+
+.higgs-badge__divider {
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    left: calc(50% - 0.5px);
+    width: 1px;
+    background: linear-gradient(to bottom,
+            rgba(59, 13, 181, 0),
+            rgba(59, 13, 181, 0.28),
+            rgba(59, 13, 181, 0));
+}
+
+.higgs-badge__seal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    color: #ffffff;
+    box-shadow: 0 14px 30px rgba(59, 13, 181, 0.24);
+    border: 3px solid #ffffff;
+    animation: pulseSeal 3.5s ease-in-out infinite;
+}
+
+.higgs-badge__plus {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
 }
 
 .checklist {
@@ -297,6 +480,13 @@ section {
     border-radius: 16px;
     background: var(--surface-muted);
     border: 1px solid var(--line);
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.step:hover {
+    transform: translateX(6px);
+    background-color: var(--accent-soft);
+    border-color: rgba(59, 13, 181, 0.28);
 }
 
 .step-title {
@@ -325,6 +515,143 @@ section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 20px;
+}
+
+/* ==========================================
+   ANIMATION KEYFRAMES
+   ========================================== */
+
+@keyframes navSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatBadge {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulseSeal {
+    0%, 100% {
+        box-shadow: 0 14px 30px rgba(59, 13, 181, 0.24);
+    }
+
+    50% {
+        box-shadow: 0 14px 44px rgba(59, 13, 181, 0.52);
+    }
+}
+
+/* ==========================================
+   HERO ENTRANCE (above-the-fold, CSS-driven)
+   ========================================== */
+
+.hero>div>.eyebrow {
+    opacity: 0;
+    animation: fadeInUp 0.55s ease forwards 0.10s;
+}
+
+.hero>div>h1 {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards 0.22s;
+}
+
+.hero>div>.lead {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards 0.35s;
+}
+
+.hero>div>.impact {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards 0.46s;
+}
+
+.hero>div>.hero-actions {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards 0.58s;
+}
+
+.hero>div>.hero-metrics {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards 0.70s;
+}
+
+.hero>.card {
+    opacity: 0;
+    animation: fadeInUp 0.65s ease forwards 0.38s;
+}
+
+/* ==========================================
+   SCROLL-TRIGGERED ANIMATIONS (JS-driven)
+   ========================================== */
+
+.anim-ready {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity 0.55s ease,
+        transform 0.55s ease;
+}
+
+.anim-ready.anim-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 860px) {
+    .higgs-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .higgs-visual {
+        order: -1;
+        margin-bottom: 4px;
+    }
+
+    .higgs-badge {
+        width: min(100%, 216px);
+    }
+
+    .higgs-badge__half {
+        padding: 28px 14px;
+    }
+
+    .higgs-badge__half img {
+        max-width: 96px;
+        max-height: 96px;
+    }
+
+    .higgs-badge__seal {
+        width: 38px;
+        height: 38px;
+    }
+
+    .higgs-badge__plus {
+        font-size: 15px;
+    }
 }
 
 footer {
@@ -404,11 +731,43 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    * {
-        scroll-behavior: auto;
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 
-    .btn {
-        transition: none;
+    /* Ensure hero elements are visible without animation */
+    .hero>div>.eyebrow,
+    .hero>div>h1,
+    .hero>div>.lead,
+    .hero>div>.impact,
+    .hero>div>.hero-actions,
+    .hero>div>.hero-metrics,
+    .hero>.card {
+        opacity: 1;
+        animation: none;
+    }
+
+    /* Scroll-animated elements: JS skips adding .anim-ready under reduced motion,
+       but this ensures visibility if they exist */
+    .anim-ready {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    /* Remove directional hover transforms */
+    .card:hover,
+    .metric:hover {
+        transform: none;
+    }
+
+    .step:hover {
+        transform: none;
     }
 }
