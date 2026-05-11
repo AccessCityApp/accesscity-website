@@ -41,6 +41,71 @@ You can deploy this as static hosting:
 - Cloudflare Pages / Netlify / Vercel / GitHub Pages
 - Any traditional hosting with an `index.html`
 
+### SiteGround Production Automation
+
+Production deploys are automated with a GitHub Actions workflow that uploads the static site to SiteGround over FTP.
+
+Files deployed to production:
+
+- `index.html`
+- `robots.txt`
+- `sitemap.xml`
+- `assets/`
+
+Files excluded from deployment:
+
+- `.github/`
+- `.vscode/`
+- `.git/`
+- `README.md`
+- `deploy-production.command`
+
+#### GitHub Secrets
+
+Set these repository secrets before the first deploy:
+
+- `FTP_SERVER` — your SiteGround FTP host
+- `FTP_USERNAME` — your SiteGround FTP username
+- `FTP_PASSWORD` — your SiteGround FTP password
+
+This workflow is currently configured to connect on FTP port `21`.
+
+If your SiteGround account requires FTPS-only configuration later, update the workflow at `.github/workflows/deploy-production.yml` before the next production run.
+
+#### Trigger Options
+
+The workflow supports one production trigger:
+
+- manual deploy through GitHub Actions `workflow_dispatch`
+
+There is also a local Mac trigger script at `./deploy-production.command`.
+
+#### Local Mac Deploy Script
+
+The repository includes a clickable macOS script that triggers the GitHub Actions production workflow.
+
+Setup:
+
+1. Install GitHub CLI: `brew install gh`
+2. Authenticate once: `gh auth login`
+3. Make the script executable: `chmod +x deploy-production.command`
+
+Usage:
+
+- Double click `deploy-production.command` in Finder
+- or run `./deploy-production.command`
+- or deploy a different branch manually with `./deploy-production.command your-branch`
+
+The script fetches `origin/<branch>` and refuses to deploy if your local branch is out of sync with the remote branch.
+
+#### Workflow File
+
+The production deployment workflow lives at `.github/workflows/deploy-production.yml`.
+
+Server target:
+
+- remote directory: `public_html/`
+
 Production domain:
 
 - `https://accesscity.gr`

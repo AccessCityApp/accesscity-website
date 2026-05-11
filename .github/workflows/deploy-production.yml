@@ -1,0 +1,48 @@
+name: Deploy Production
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify deploy payload
+        run: |
+          set -euo pipefail
+
+          test -f index.html
+          test -f robots.txt
+          test -f sitemap.xml
+          test -d assets
+          test -f assets/app.js
+          test -f assets/styles.css
+
+          grep -q 'assets/styles.css' index.html
+          grep -q 'assets/app.js' index.html
+
+      - name: Deploy static site to SiteGround
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          server-dir: public_html/
+          local-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/.vscode/**
+            **/.DS_Store
+            README.md
+            deploy-production.command
