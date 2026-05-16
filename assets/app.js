@@ -35,16 +35,23 @@ function setLanguage(lang) {
         el.textContent = el.getAttribute("data-" + lang);
     });
 
+    const pageStrings = window.PAGE_LANG_STRINGS && window.PAGE_LANG_STRINGS[lang];
+
     if (lang === "el") {
         title.textContent =
+            (pageStrings && pageStrings.title) ||
             "AccessCity — Χαρτογράφηση & βελτίωση αστικής προσβασιμότητας";
         metaDescription.content =
+            (pageStrings && pageStrings.description) ||
             "Το AccessCity μετατρέπει παρατηρήσεις σε δομημένα δεδομένα για πιο προσβάσιμες πόλεις.";
         toggle.textContent = "EN";
         toggle.setAttribute("aria-label", "Change language to English");
     } else {
-        title.textContent = "AccessCity — Urban Accessibility Data Platform";
+        title.textContent =
+            (pageStrings && pageStrings.title) ||
+            "AccessCity — Urban Accessibility Data Platform";
         metaDescription.content =
+            (pageStrings && pageStrings.description) ||
             "AccessCity turns accessibility observations into structured data that supports inclusive cities.";
         toggle.textContent = "EL";
         toggle.setAttribute("aria-label", "Αλλαγή γλώσσας στα Ελληνικά");
