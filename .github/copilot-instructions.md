@@ -185,3 +185,21 @@ The system should evolve toward:
 - Policy influence through measurable impact
 
 All development decisions should align with this long-term direction.
+
+---
+
+## 11. Blog Direction
+
+The blog should support AccessCity’s mission by publishing:
+
+- Evidence-based accessibility insights
+- Field learnings from structured data collection
+- Practical guidance for citizens, municipalities, and organizations
+
+Blog content should remain:
+
+- Professional and solution-oriented
+- Educational, clear, and actionable
+- Aligned with structured civic data (not complaint-style posting)
+
+Each article should help readers understand what happened, why it matters, and what can be done next.
