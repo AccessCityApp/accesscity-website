@@ -1,8 +1,8 @@
-# AccessCity — Copilot Instructions
+# Accessity — Copilot Instructions
 
 ## 1. Project Overview
 
-AccessCity is a civic-tech initiative focused on improving urban accessibility through structured community-driven data collection and collaboration with public institutions.
+Accessity is a civic-tech initiative focused on improving urban accessibility through structured community-driven data collection and collaboration with public institutions.
 
 The platform enables citizens to report accessibility barriers and accessible points in cities, transforming these reports into structured, actionable datasets that municipalities and organizations can use to improve urban inclusion.
 
@@ -37,7 +37,7 @@ Examples include:
 - Lack of accessible toilets
 - Temporary obstacles
 
-AccessCity transforms isolated observations into structured, categorized, and actionable urban accessibility data.
+Accessity transforms isolated observations into structured, categorized, and actionable urban accessibility data.
 
 ---
 
@@ -139,7 +139,7 @@ The product supports collaboration, not conflict.
 
 ## 8. Business Context
 
-AccessCity aims to:
+Accessity aims to:
 
 - Partner with municipalities
 - Provide dashboards and analytics
@@ -173,7 +173,7 @@ All public-facing pages must:
 
 ## 10. Long-Term Vision
 
-AccessCity aims to become:
+Accessity aims to become:
 
 A structured accessibility data layer for cities.
 
