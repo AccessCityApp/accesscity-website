@@ -36,7 +36,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          server-dir: public_html/
+          server-dir: accesscity.gr/public_html/
           local-dir: ./
           exclude: |
             **/.git*
