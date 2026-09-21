@@ -2,7 +2,7 @@
   "name": "accessity-landing-page",
   "private": true,
   "version": "1.0.0",
-  "description": "Static site build pipeline for AccessCity.",
+  "description": "Static site build pipeline for Accessity.",
   "scripts": {
     "build": "eleventy",
     "start": "eleventy --serve"

@@ -53,19 +53,19 @@ function setLanguage(lang) {
     if (lang === "el") {
         title.textContent =
             (pageStrings && pageStrings.title) ||
-            "AccessCity — Χαρτογράφηση & βελτίωση αστικής προσβασιμότητας";
+            "Accessity — Χαρτογράφηση & βελτίωση αστικής προσβασιμότητας";
         metaDescription.content =
             (pageStrings && pageStrings.description) ||
-            "Το AccessCity μετατρέπει παρατηρήσεις σε δομημένα δεδομένα για πιο προσβάσιμες πόλεις.";
+            "Το Accessity μετατρέπει παρατηρήσεις σε δομημένα δεδομένα για πιο προσβάσιμες πόλεις.";
         toggle.textContent = "EN";
         toggle.setAttribute("aria-label", "Change language to English");
     } else {
         title.textContent =
             (pageStrings && pageStrings.title) ||
-            "AccessCity — Urban Accessibility Data Platform";
+            "Accessity — Urban Accessibility Data Platform";
         metaDescription.content =
             (pageStrings && pageStrings.description) ||
-            "AccessCity turns accessibility observations into structured data that supports inclusive cities.";
+            "Accessity turns accessibility observations into structured data that supports inclusive cities.";
         toggle.textContent = "EL";
         toggle.setAttribute("aria-label", "Αλλαγή γλώσσας στα Ελληνικά");
     }
@@ -107,7 +107,7 @@ if (brandLink) {
 }
 
 document.getElementById("copyright").textContent =
-    "© " + new Date().getFullYear() + " AccessCity";
+    "© " + new Date().getFullYear() + " Accessity";
 
 // ==========================================
 // SCROLL-TRIGGERED ANIMATIONS

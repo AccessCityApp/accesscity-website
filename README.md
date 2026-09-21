@@ -1,6 +1,6 @@
-# AccessCity — accesscity.gr (Static Landing Page)
+# Accessity — accessity.gr (Static Landing Page)
 
-Preliminary static website for AccessCity, focused on:
+Preliminary static website for Accessity, focused on:
 
 - Clear public information about the initiative
 - Touch points for citizens, municipalities, partners, volunteers, and supporters
@@ -126,11 +126,11 @@ The production deployment workflow lives at `.github/workflows/deploy-production
 
 Server target:
 
-- remote directory: `accesscity.gr/public_html/`
+- remote directory: `accessity.gr/public_html/`
 
 Production domain:
 
-- `https://accesscity.gr`
+- `https://accessity.gr`
 
 ## Editing Content
 
@@ -184,8 +184,8 @@ Image links are saved in content and served from `/media/...`.
 ## SEO Checklist (Production)
 
 - [ ] Set correct `<title>` and meta description
-- [ ] Confirm `canonical` points to `https://accesscity.gr/`
-- [ ] Add `og:image` at `https://accesscity.gr/assets/og-accesscity.jpg` (1200×630)
+- [ ] Confirm `canonical` points to `https://accessity.gr/`
+- [ ] Add `og:image` at `https://accessity.gr/assets/og-accessity.jpg` (1200×630)
 - [ ] Add `sitemap.xml` and `robots.txt`
 - [ ] Ensure one `h1` only
 - [ ] Validate JSON-LD (Organization + WebSite)
@@ -224,4 +224,4 @@ SEO:
 
 ## Contact
 
-- Email: `info@accesscity.gr`
+- Email: `info@accessity.gr`

@@ -1,10 +1,10 @@
 module.exports = {
-    url: "https://accesscity.gr",
+    url: "https://accessity.gr",
     blog: {
         eyebrowEl: "Νέα & Ανακοινώσεις",
         eyebrowEn: "News & Announcements",
-        titleEl: "Τι συμβαίνει στο AccessCity",
-        titleEn: "What's happening at AccessCity",
+        titleEl: "Τι συμβαίνει στο Accessity",
+        titleEn: "What's happening at Accessity",
         leadEl:
             "Ενημερωτικές αναρτήσεις για τη δράση μας, τις συνεργασίες μας και τις εξελίξεις στον χώρο της αστικής προσβασιμότητας.",
         leadEn:
