@@ -23,6 +23,13 @@ Preliminary static website for Accessity, focused on:
 
 - `index.html` — the landing page
 - `assets/` — logos, styles, scripts, and shared assets
+
+  Filenames carry a version suffix (`styles.v2.css`, `app.v2.js`, `logo.v2.png`).
+  SiteGround serves these with a one-year `Cache-Control`, so when you change one,
+  bump the suffix and update the references in `index.html`,
+  `src/_includes/layouts/base.njk` and the payload check in
+  `.github/workflows/deploy-production.yml` — otherwise returning visitors keep the
+  old file against new HTML.
 - `content/blog/` — structured blog post entries
 - `src/` — Eleventy templates and generated blog sources
 - `.pages.yml` — Pages CMS configuration for browser-based blog editing

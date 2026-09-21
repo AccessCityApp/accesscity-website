@@ -52,11 +52,11 @@ jobs:
           test -f dist/blog.html
           test -d dist/blog
           test -d dist/assets
-          test -f dist/assets/app.js
-          test -f dist/assets/styles.css
+          test -f dist/assets/app.v2.js
+          test -f dist/assets/styles.v2.css
 
-          grep -q 'assets/styles.css' dist/index.html
-          grep -q 'assets/app.js' dist/index.html
+          grep -q 'assets/styles.v2.css' dist/index.html
+          grep -q 'assets/app.v2.js' dist/index.html
 
       - name: Deploy static site to SiteGround
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
