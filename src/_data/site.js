@@ -3,7 +3,7 @@ module.exports = {
     blog: {
         eyebrowEl: "Νέα & Ανακοινώσεις",
         eyebrowEn: "News & Announcements",
-        titleEl: "Τι συμβαίνει στο Accessity",
+        titleEl: "Τι συμβαίνει στην Accessity",
         titleEn: "What's happening at Accessity",
         leadEl:
             "Ενημερωτικές αναρτήσεις για τη δράση μας, τις συνεργασίες μας και τις εξελίξεις στον χώρο της αστικής προσβασιμότητας.",

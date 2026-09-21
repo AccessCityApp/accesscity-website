@@ -56,7 +56,7 @@ function setLanguage(lang) {
             "Accessity — Χαρτογράφηση & βελτίωση αστικής προσβασιμότητας";
         metaDescription.content =
             (pageStrings && pageStrings.description) ||
-            "Το Accessity μετατρέπει παρατηρήσεις σε δομημένα δεδομένα για πιο προσβάσιμες πόλεις.";
+            "Η Accessity μετατρέπει παρατηρήσεις σε δομημένα δεδομένα για πιο προσβάσιμες πόλεις.";
         toggle.textContent = "EN";
         toggle.setAttribute("aria-label", "Change language to English");
     } else {
