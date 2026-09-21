@@ -15,7 +15,7 @@ actions:
     workflow: deploy-production.yml
     confirm:
       title: Deploy to production?
-      message: This publishes the current branch build to accesscity.gr.
+      message: This publishes the current branch build to accessity.gr.
       button: Deploy now
 
 content:
