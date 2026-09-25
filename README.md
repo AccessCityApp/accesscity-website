@@ -89,11 +89,16 @@ This workflow is currently configured to connect on FTP port `21`.
 
 If your SiteGround account requires FTPS-only configuration later, update the workflow at `.github/workflows/deploy-production.yml` before the next production run.
 
-#### Caching
+#### Caching and redirects
 
 `.htaccess` sends `Cache-Control: no-cache` for HTML, `sitemap.xml` and `robots.txt`, so
 browsers revalidate them and SiteGround's Dynamic Cache never serves a page from before the
-last deploy. Assets keep a one-year cache, which is why their filenames are versioned.
+last deploy. Assets keep a one-year cache, which is why their filenames are versioned. The
+Dynamic Cache keeps assets for that year too, so if a file is ever replaced under the same
+name (a re-uploaded CMS image, say), flush it: Site Tools → Speed → Caching → Dynamic Cache.
+
+It also redirects `http://`, `www.` and the old `accesscity.gr` domain to
+`https://accessity.gr`, except `/.well-known/`, which certificate renewals fetch over plain http.
 
 This needs **NGINX Direct Delivery off** (Site Tools → Speed → Caching). With it on, nginx
 serves static files itself, ignores `.htaccess`, and gives HTML a 180-day cache.
