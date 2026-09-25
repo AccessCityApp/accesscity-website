@@ -20,6 +20,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy({ "assets/logo.v2.png": "assets/logo.png" });
     eleventyConfig.addPassthroughCopy({ "media": "media" });
     eleventyConfig.addPassthroughCopy({ "robots.txt": "robots.txt" });
+    eleventyConfig.addPassthroughCopy({ ".htaccess": ".htaccess" });
     eleventyConfig.addFilter("markdown", (value) => markdown.render(value || ""));
     // Nunjucks calls globals with its render context as `this`, which holds the page's lang.
     eleventyConfig.addNunjucksGlobal("t", function (el, en) {

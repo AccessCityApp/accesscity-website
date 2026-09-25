@@ -1,0 +1,15 @@
+# Deployed from the repo, so change it here rather than on the server.
+# Needs NGINX Direct Delivery off (Site Tools > Speed > Caching): while it is on,
+# nginx serves static files itself, ignores this file and caches HTML for 180 days.
+<IfModule mod_headers.c>
+    # Revalidate so returning visitors see new posts; no-cache also keeps
+    # SiteGround's Dynamic Cache from serving a copy from before the last deploy.
+    <FilesMatch "\.(html|xml|txt)$">
+        Header set Cache-Control "no-cache"
+    </FilesMatch>
+
+    # The one-year cache nginx gave them; assets/ files are renamed when they change.
+    <FilesMatch "\.(css|js|png|jpe?g|gif|webp|avif|svg|ico|woff2?)$">
+        Header set Cache-Control "public, max-age=31536000"
+    </FilesMatch>
+</IfModule>

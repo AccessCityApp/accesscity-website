@@ -48,6 +48,7 @@ jobs:
 
           test -f dist/index.html
           test -f dist/robots.txt
+          test -f dist/.htaccess
           test -f dist/sitemap.xml
           test -f dist/blog.html
           test -f dist/en/index.html

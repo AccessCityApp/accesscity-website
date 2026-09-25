@@ -68,7 +68,7 @@ Production deploys are automated with a GitHub Actions workflow that uploads the
 Files deployed to production:
 
 - generated `dist/` output
-- includes `index.html`, `blog.html`, `blog/*.html`, their English versions under `en/`, `robots.txt`, `sitemap.xml`, `assets/`, and `media/`
+- includes `index.html`, `blog.html`, `blog/*.html`, their English versions under `en/`, `robots.txt`, `sitemap.xml`, `.htaccess`, `assets/`, and `media/`
 
 Files excluded from deployment:
 
@@ -89,6 +89,18 @@ Set these repository secrets before the first deploy:
 This workflow is currently configured to connect on FTP port `21`.
 
 If your SiteGround account requires FTPS-only configuration later, update the workflow at `.github/workflows/deploy-production.yml` before the next production run.
+
+#### Caching
+
+`.htaccess` sends `Cache-Control: no-cache` for HTML, `sitemap.xml` and `robots.txt`, so
+browsers revalidate them and SiteGround's Dynamic Cache never serves a page from before the
+last deploy. Assets keep a one-year cache, which is why their filenames are versioned.
+
+This needs **NGINX Direct Delivery off** (Site Tools → Speed → Caching). With it on, nginx
+serves static files itself, ignores `.htaccess`, and gives HTML a 180-day cache.
+
+The deploy deletes anything missing from `dist/`, so the file lives in the repo and the payload
+check refuses to deploy without it. Change it here rather than on the server.
 
 #### Trigger Options
 
