@@ -1,7 +1,7 @@
 {% if lang == "en" %}
 <a
   class="btn btn-ghost"
-  href="{{ rootPrefix }}{{ urlPath or 'index.html' }}"
+  href="{{ rootPrefix }}{{ urlPath }}"
   hreflang="el"
   lang="el"
   aria-label="Αλλαγή γλώσσας στα Ελληνικά"
@@ -11,7 +11,7 @@
 {% else %}
 <a
   class="btn btn-ghost"
-  href="{{ rootPrefix }}en/{{ urlPath or 'index.html' }}"
+  href="{{ rootPrefix }}en/{{ urlPath }}"
   hreflang="en"
   lang="en"
   aria-label="Change language to English"
