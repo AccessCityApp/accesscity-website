@@ -62,10 +62,12 @@ jobs:
       - name: Deploy static site to SiteGround
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          # The only name SiteGround's FTPS certificate covers; the site's domain fails strict checking.
+          server: esm13.siteground.biz
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
+          security: strict
           port: 21
           server-dir: accessity.gr/public_html/
           local-dir: ./dist/
