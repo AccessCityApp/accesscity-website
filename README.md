@@ -24,7 +24,7 @@ Preliminary static website for Accessity, focused on:
 - `src/index.njk` — the landing page
 - `assets/` — logos, styles, scripts, and shared assets
 
-  Filenames carry a version suffix (`styles.v2.css`, `app.v3.js`, `logo.v2.png`).
+  Filenames carry a version suffix (`styles.v2.css`, `app.v4.js`, `logo.v2.png`).
   SiteGround serves these with a one-year `Cache-Control`, so when you change one,
   bump the suffix and update the references in `src/index.njk`,
   `src/_includes/layouts/base.njk` and the payload check in
