@@ -17,7 +17,6 @@ module.exports = function (eleventyConfig) {
     // Passthroughs are keyed by source path, so a second copy needs another spelling.
     eleventyConfig.addPassthroughCopy({ "./assets/app.v3.js": "assets/app.js" });
     eleventyConfig.addPassthroughCopy({ "assets/logo.v2.png": "assets/logo.png" });
-    eleventyConfig.addPassthroughCopy({ "index.html": "index.html" });
     eleventyConfig.addPassthroughCopy({ "media": "media" });
     eleventyConfig.addPassthroughCopy({ "robots.txt": "robots.txt" });
     // Output is inlined in a <script>, which a literal "</script>" would close.
