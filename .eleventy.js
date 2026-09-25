@@ -18,7 +18,8 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy({ "index.html": "index.html" });
     eleventyConfig.addPassthroughCopy({ "media": "media" });
     eleventyConfig.addPassthroughCopy({ "robots.txt": "robots.txt" });
-    eleventyConfig.addFilter("json", (value) => JSON.stringify(value));
+    // Output is inlined in a <script>, which a literal "</script>" would close.
+    eleventyConfig.addFilter("json", (value) => JSON.stringify(value).replace(/</g, "\\u003c"));
     eleventyConfig.addFilter("markdown", (value) => markdown.render(value || ""));
 
     return {
