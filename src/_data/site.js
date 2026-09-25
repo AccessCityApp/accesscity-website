@@ -1,5 +1,7 @@
 module.exports = {
     url: "https://accessity.gr",
+    // Greek pages live at the root, English ones under /en/.
+    languages: ["el", "en"],
     blog: {
         eyebrowEl: "Νέα & Ανακοινώσεις",
         eyebrowEn: "News & Announcements",

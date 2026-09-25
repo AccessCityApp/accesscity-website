@@ -1,5 +1,12 @@
+---
+pagination:
+  data: site.languages
+  size: 1
+  alias: lang
+permalink: "{{ 'en/' if lang == 'en' }}index.html"
+---
 <!doctype html>
-<html lang="el">
+<html lang="{{ lang }}">
   <head>
     <meta charset="utf-8" />
 
@@ -14,22 +21,24 @@
     </script>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <title id="page-title">
-      Accessity — Χαρτογράφηση & βελτίωση αστικής προσβασιμότητας
+    <title>
+      {{ t(
+        "Accessity — Χαρτογράφηση & βελτίωση αστικής προσβασιμότητας",
+        "Accessity — Urban Accessibility Data Platform"
+      ) }}
     </title>
 
     <meta
-      id="meta-description"
       name="description"
-      content="Η Accessity μετατρέπει παρατηρήσεις σε δομημένα δεδομένα για πιο προσβάσιμες πόλεις."
+      content="{{ t(
+        'Η Accessity μετατρέπει παρατηρήσεις σε δομημένα δεδομένα για πιο προσβάσιμες πόλεις.',
+        'Accessity turns accessibility observations into structured data that supports inclusive cities.'
+      ) }}"
     />
 
-    <link rel="icon" href="assets/logo.v2.png" type="image/png" />
+    <link rel="icon" href="{{ rootPrefix }}assets/logo.v2.png" type="image/png" />
 
-    <link rel="canonical" href="https://accessity.gr/" />
-    <link rel="alternate" hreflang="el" href="https://accessity.gr/?lang=el" />
-    <link rel="alternate" hreflang="en" href="https://accessity.gr/?lang=en" />
-    <link rel="alternate" hreflang="x-default" href="https://accessity.gr/" />
+    {% include "partials/alternates.njk" %}
 
     <meta name="robots" content="index,follow" />
 
@@ -42,55 +51,38 @@
 
     <meta name="theme-color" content="#3b0db5" />
     <meta name="color-scheme" content="light" />
-    <link rel="stylesheet" href="assets/styles.v2.css" />
+    <link rel="stylesheet" href="{{ rootPrefix }}assets/styles.v2.css" />
   </head>
 
   <body>
-    <a
-      href="#main"
-      class="skip-link"
-      data-el="Μετάβαση στο περιεχόμενο"
-      data-en="Skip to content"
-    >
-      Μετάβαση στο περιεχόμενο
+    <a href="#main" class="skip-link">
+      {{ t("Μετάβαση στο περιεχόμενο", "Skip to content") }}
     </a>
 
     <header id="top">
       <div class="wrap nav-bar">
         <a class="brand" href="#top" aria-label="Accessity">
-          <img class="brand-mark" src="assets/logo.v2.png" alt="" />
+          <img class="brand-mark" src="{{ rootPrefix }}assets/logo.v2.png" alt="" />
           <span class="brand-text">Accessity</span>
         </a>
         <nav aria-label="Main navigation">
-          <a href="#about" data-el="Τι είναι" data-en="About">Τι είναι</a>
-          <a href="#how" data-el="Πώς λειτουργεί" data-en="How it works">
-            Πώς λειτουργεί
+          <a href="#about">{{ t("Τι είναι", "About") }}</a>
+          <a href="#how">
+            {{ t("Πώς λειτουργεί", "How it works") }}
           </a>
-          <a href="#partners" data-el="Για δήμους" data-en="For cities">
-            Για δήμους
+          <a href="#partners">
+            {{ t("Για δήμους", "For cities") }}
           </a>
-          <a href="#contact" data-el="Συμμετοχή" data-en="Get involved">
-            Συμμετοχή
+          <a href="#contact">
+            {{ t("Συμμετοχή", "Get involved") }}
           </a>
-          <a href="blog.html" data-el="Νέα" data-en="News">Νέα</a>
+          <a href="blog.html">{{ t("Νέα", "News") }}</a>
         </nav>
         <div class="nav-actions">
-          <a
-            class="btn btn-primary"
-            href="#contact"
-            data-el="Επικοινώνησε"
-            data-en="Contact"
-          >
-            Επικοινώνησε
+          <a class="btn btn-primary" href="#contact">
+            {{ t("Επικοινώνησε", "Contact") }}
           </a>
-          <button
-            id="lang-toggle"
-            class="btn btn-ghost"
-            aria-label="Change language"
-            type="button"
-          >
-            EN
-          </button>
+          {% include "partials/lang-switch.njk" %}
         </div>
       </div>
     </header>
@@ -98,121 +90,68 @@
     <main id="main" class="wrap" tabindex="-1">
       <section class="hero" aria-labelledby="hero-title">
         <div>
-          <p
-            class="eyebrow"
-            data-el="Πρωτοβουλία αστικής προσβασιμότητας"
-            data-en="Urban accessibility initiative"
-          >
-            Πρωτοβουλία αστικής προσβασιμότητας
+          <p class="eyebrow">
+            {{ t("Πρωτοβουλία αστικής προσβασιμότητας", "Urban accessibility initiative") }}
           </p>
-          <h1
-            id="hero-title"
-            data-el="Δίνουμε ορατότητα στην αστική προσβασιμότητα"
-            data-en="We give visibility to urban accessibility"
-          >
-            Δίνουμε ορατότητα στην αστική προσβασιμότητα
+          <h1 id="hero-title">
+            {{ t(
+              "Δίνουμε ορατότητα στην αστική προσβασιμότητα",
+              "We give visibility to urban accessibility"
+            ) }}
           </h1>
-          <p
-            class="lead"
-            data-el="Η Accessity μετατρέπει παρατηρήσεις της καθημερινότητας σε δομημένα δεδομένα που βοηθούν τις πόλεις να γίνουν πιο προσβάσιμες."
-            data-en="Accessity turns everyday observations into structured data that helps cities become more accessible."
-          >
-            Η Accessity μετατρέπει παρατηρήσεις της καθημερινότητας σε
-            δομημένα δεδομένα που βοηθούν τις πόλεις να γίνουν πιο προσβάσιμες.
+          <p class="lead">
+            {{ t(
+              "Η Accessity μετατρέπει παρατηρήσεις της καθημερινότητας σε δομημένα δεδομένα που βοηθούν τις πόλεις να γίνουν πιο προσβάσιμες.",
+              "Accessity turns everyday observations into structured data that helps cities become more accessible."
+            ) }}
           </p>
-          <p
-            class="impact"
-            data-el="Βελτιώνει την καθημερινότητα ΑμεΑ, ηλικιωμένων και γονέων με καρότσια, προσφέροντας ασφάλεια, αυτονομία και αξιοπρέπεια."
-            data-en="Improves daily mobility for people with disabilities, older adults, and parents with strollers by supporting safety, independence, and dignity."
-          >
-            Βελτιώνει την καθημερινότητα ΑμεΑ, ηλικιωμένων και γονέων με
-            καρότσια, προσφέροντας ασφάλεια, αυτονομία και αξιοπρέπεια.
+          <p class="impact">
+            {{ t(
+              "Βελτιώνει την καθημερινότητα ΑμεΑ, ηλικιωμένων και γονέων με καρότσια, προσφέροντας ασφάλεια, αυτονομία και αξιοπρέπεια.",
+              "Improves daily mobility for people with disabilities, older adults, and parents with strollers by supporting safety, independence, and dignity."
+            ) }}
           </p>
           <div class="hero-actions">
-            <a
-              class="btn btn-primary"
-              href="#contact"
-              data-el="Ξεκίνα συνεργασία"
-              data-en="Start collaborating"
-            >
-              Ξεκίνα συνεργασία
+            <a class="btn btn-primary" href="#contact">
+              {{ t("Ξεκίνα συνεργασία", "Start collaborating") }}
             </a>
-            <a
-              class="btn btn-secondary"
-              href="#how"
-              data-el="Δες τη διαδικασία"
-              data-en="See the process"
-            >
-              Δες τη διαδικασία
+            <a class="btn btn-secondary" href="#how">
+              {{ t("Δες τη διαδικασία", "See the process") }}
             </a>
           </div>
           <div class="hero-metrics">
             <div class="metric">
-              <span class="metric-number" data-el="3" data-en="3">3</span>
-              <span
-                class="metric-label"
-                data-el="βασικές κατηγορίες δεδομένων"
-                data-en="core data categories"
-              >
-                βασικές κατηγορίες δεδομένων
+              <span class="metric-number">3</span>
+              <span class="metric-label">
+                {{ t("βασικές κατηγορίες δεδομένων", "core data categories") }}
               </span>
             </div>
             <div class="metric">
-              <span class="metric-number" data-el="100%" data-en="100%"
-                >100%</span
-              >
-              <span
-                class="metric-label"
-                data-el="διαφανής μεθοδολογία"
-                data-en="transparent methodology"
-              >
-                διαφανής μεθοδολογία
+              <span class="metric-number">100%</span>
+              <span class="metric-label">
+                {{ t("διαφανής μεθοδολογία", "transparent methodology") }}
               </span>
             </div>
             <div class="metric">
-              <span class="metric-number" data-el="24/7" data-en="24/7"
-                >24/7</span
-              >
-              <span
-                class="metric-label"
-                data-el="συλλογή από την κοινότητα"
-                data-en="community-powered collection"
-              >
-                συλλογή από την κοινότητα
+              <span class="metric-number">24/7</span>
+              <span class="metric-label">
+                {{ t("συλλογή από την κοινότητα", "community-powered collection") }}
               </span>
             </div>
           </div>
         </div>
         <div class="card">
-          <h2 data-el="Τι είναι η Accessity" data-en="What is Accessity">
-            Τι είναι η Accessity
-          </h2>
-          <p
-            data-el="Μια πλατφόρμα που οργανώνει δεδομένα προσβασιμότητας σε μορφή που μπορούν να αξιοποιήσουν πολίτες, δήμοι και φορείς."
-            data-en="A platform that organizes accessibility data in a format that citizens, municipalities, and organizations can use."
-          >
-            Μια πλατφόρμα που οργανώνει δεδομένα προσβασιμότητας σε μορφή που
-            μπορούν να αξιοποιήσουν πολίτες, δήμοι και φορείς.
+          <h2>{{ t("Τι είναι η Accessity", "What is Accessity") }}</h2>
+          <p>
+            {{ t(
+              "Μια πλατφόρμα που οργανώνει δεδομένα προσβασιμότητας σε μορφή που μπορούν να αξιοποιήσουν πολίτες, δήμοι και φορείς.",
+              "A platform that organizes accessibility data in a format that citizens, municipalities, and organizations can use."
+            ) }}
           </p>
           <ul class="checklist">
-            <li
-              data-el="Δομημένη καταγραφή εμποδίων"
-              data-en="Structured barrier reporting"
-            >
-              Δομημένη καταγραφή εμποδίων
-            </li>
-            <li
-              data-el="Σαφείς κατηγορίες και σοβαρότητα"
-              data-en="Clear categories and severity"
-            >
-              Σαφείς κατηγορίες και σοβαρότητα
-            </li>
-            <li
-              data-el="Δεδομένα έτοιμα για δράση"
-              data-en="Action-ready datasets"
-            >
-              Δεδομένα έτοιμα για δράση
-            </li>
+            <li>{{ t("Δομημένη καταγραφή εμποδίων", "Structured barrier reporting") }}</li>
+            <li>{{ t("Σαφείς κατηγορίες και σοβαρότητα", "Clear categories and severity") }}</li>
+            <li>{{ t("Δεδομένα έτοιμα για δράση", "Action-ready datasets") }}</li>
           </ul>
         </div>
       </section>
@@ -221,74 +160,59 @@
         <article class="card higgs-card">
           <div class="higgs-layout">
             <div class="higgs-copy">
-              <h2
-                id="higgs-title"
-                data-el="Η Accessity συμμετέχει στο πρόγραμμα Incubator του HIGGS"
-                data-en="Accessity participates in the HIGGS Incubator program"
-              >
-                Η Accessity συμμετέχει στο πρόγραμμα Incubator του HIGGS
+              <h2 id="higgs-title">
+                {{ t(
+                  "Η Accessity συμμετέχει στο πρόγραμμα Incubator του HIGGS",
+                  "Accessity participates in the HIGGS Incubator program"
+                ) }}
               </h2>
-              <p
-                data-el="Είμαστε στην ευχάριστη θέση να ανακοινώσουμε τη συμμετοχή μας στον τρέχοντα κύκλο του προγράμματος Incubator του HIGGS! Στην διάρκεια του προγράμματος, εστιάζουμε στην υιοθέτηση καλών πρακτικών στον τρόπο λειτουργίας και επικοινωνίας μας και στην ενίσχυση της διαφάνειας και του κοινωνικού μας αποτυπώματος."
-                data-en="We are pleased to announce our participation in the current cycle of the HIGGS Incubator program. During the program, we focus on adopting good practices in the way we operate and communicate, and on strengthening our transparency and social impact."
-              >
-                Είμαστε στην ευχάριστη θέση να ανακοινώσουμε τη συμμετοχή μας
-                στον τρέχοντα κύκλο του προγράμματος Incubator του HIGGS! Στην
-                διάρκεια του προγράμματος, εστιάζουμε στην υιοθέτηση καλών
-                πρακτικών στον τρόπο λειτουργίας και επικοινωνίας μας και στην
-                ενίσχυση της διαφάνειας και του κοινωνικού μας αποτυπώματος.
-              </p>
-              <p
-                data-el="Εξίσου σημαντική είναι η συνεργασία με άλλες ομάδες και φορείς του προγράμματος και όχι μόνο. Ανταλλάσσουμε εμπειρία και ιδέες, δοκιμάζουμε και κρατάμε ό,τι λειτουργεί στην πράξη."
-                data-en="Equally important is collaboration with other teams and organizations in the program and beyond. We exchange experience and ideas, we test, and we keep what works in practice."
-              >
-                Εξίσου σημαντική είναι η συνεργασία με άλλες ομάδες και φορείς
-                του προγράμματος. Ανταλλάσσουμε εμπειρία και ιδέες, δοκιμάζουμε
-                και κρατάμε ό,τι λειτουργεί στην πράξη.
+              <p>
+                {{ t(
+                  "Είμαστε στην ευχάριστη θέση να ανακοινώσουμε τη συμμετοχή μας στον τρέχοντα κύκλο του προγράμματος Incubator του HIGGS! Στην διάρκεια του προγράμματος, εστιάζουμε στην υιοθέτηση καλών πρακτικών στον τρόπο λειτουργίας και επικοινωνίας μας και στην ενίσχυση της διαφάνειας και του κοινωνικού μας αποτυπώματος.",
+                  "We are pleased to announce our participation in the current cycle of the HIGGS Incubator program. During the program, we focus on adopting good practices in the way we operate and communicate, and on strengthening our transparency and social impact."
+                ) }}
               </p>
               <p>
-                <span data-el="Το " data-en=""> Το </span>
-                <strong
-                  data-el="HIGGS (Higher Incubator Giving Growth & Sustainability)"
-                  data-en="HIGGS (Higher Incubator Giving Growth & Sustainability)"
-                >
-                  HIGGS (Higher Incubator Giving Growth & Sustainability)
-                </strong>
-                <span
-                  data-el=" στηρίζει οργανώσεις και κοινωνικές επιχειρήσεις με εκπαίδευση, συμβουλευτική και δικτύωση για βιώσιμη ανάπτυξη και ενίσχυση του κοινωνικού τους αντίκτυπου."
-                  data-en=" supports organizations and social enterprises through education, consulting, and networking for sustainable development and strengthening their social impact."
-                >
-                  στηρίζει οργανώσεις και κοινωνικές επιχειρήσεις με εκπαίδευση,
-                  συμβουλευτική και δικτύωση για βιώσιμη ανάπτυξη και ενίσχυση
-                  του κοινωνικού τους αντίκτυπου.
-                </span>
+                {{ t(
+                  "Εξίσου σημαντική είναι η συνεργασία με άλλες ομάδες και φορείς του προγράμματος και όχι μόνο. Ανταλλάσσουμε εμπειρία και ιδέες, δοκιμάζουμε και κρατάμε ό,τι λειτουργεί στην πράξη.",
+                  "Equally important is collaboration with other teams and organizations in the program and beyond. We exchange experience and ideas, we test, and we keep what works in practice."
+                ) }}
               </p>
-              <p
-                data-el="Ευχαριστούμε θερμά το HIGGS για τη φιλοξενία της ομάδας μας στο πρόγραμμα και αναμένουμε να αξιοποιήσουμε στο έπακρο αυτή την εμπειρία για να προωθήσουμε την αποστολή μας για πιο προσβάσιμες πόλεις."
-                data-en="We warmly thank HIGGS for hosting our team in the program, and we look forward to making the most of this experience to advance our mission for more accessible cities."
-              >
-                Ευχαριστούμε θερμά το HIGGS για τη φιλοξενία της ομάδας μας στο
-                πρόγραμμα και αναμένουμε να αξιοποιήσουμε στο έπακρο αυτή την
-                εμπειρία για να προωθήσουμε την αποστολή μας για πιο προσβάσιμες
-                πόλεις.
+              <p>
+                {% if lang == "en" %}
+                <strong>HIGGS (Higher Incubator Giving Growth &amp; Sustainability)</strong>
+                supports organizations and social enterprises through education,
+                consulting, and networking for sustainable development and
+                strengthening their social impact.
+                {% else %}
+                Το
+                <strong>HIGGS (Higher Incubator Giving Growth &amp; Sustainability)</strong>
+                στηρίζει οργανώσεις και κοινωνικές επιχειρήσεις με εκπαίδευση,
+                συμβουλευτική και δικτύωση για βιώσιμη ανάπτυξη και ενίσχυση του
+                κοινωνικού τους αντίκτυπου.
+                {% endif %}
+              </p>
+              <p>
+                {{ t(
+                  "Ευχαριστούμε θερμά το HIGGS για τη φιλοξενία της ομάδας μας στο πρόγραμμα και αναμένουμε να αξιοποιήσουμε στο έπακρο αυτή την εμπειρία για να προωθήσουμε την αποστολή μας για πιο προσβάσιμες πόλεις.",
+                  "We warmly thank HIGGS for hosting our team in the program, and we look forward to making the most of this experience to advance our mission for more accessible cities."
+                ) }}
               </p>
               <a
                 href="https://www.higgs3.org/"
                 target="_blank"
                 rel="noopener noreferrer"
-                data-el="Μάθε περισσότερα για το HIGGS →"
-                data-en="Learn more about HIGGS →"
               >
-                Μάθε περισσότερα για το HIGGS →
+                {{ t("Μάθε περισσότερα για το HIGGS →", "Learn more about HIGGS →") }}
               </a>
             </div>
             <div class="higgs-visual" aria-hidden="true">
               <div class="higgs-badge">
                 <div class="higgs-badge__half higgs-badge__half--accessity">
-                  <img src="assets/logo.v2.png" alt="" loading="lazy" />
+                  <img src="{{ rootPrefix }}assets/logo.v2.png" alt="" loading="lazy" />
                 </div>
                 <div class="higgs-badge__half higgs-badge__half--higgs">
-                  <img src="assets/higgs-logo.png" alt="" loading="lazy" />
+                  <img src="{{ rootPrefix }}assets/higgs-logo.png" alt="" loading="lazy" />
                 </div>
                 <div class="higgs-badge__divider"></div>
                 <div class="higgs-badge__seal">
@@ -301,135 +225,95 @@
       </section>
 
       <section id="about" aria-labelledby="about-title">
-        <p class="eyebrow" data-el="Τι καταγράφουμε" data-en="What we capture">
-          Τι καταγράφουμε
-        </p>
-        <h2
-          id="about-title"
-          data-el="Δεδομένα με νόημα"
-          data-en="Meaningful data"
-        >
-          Δεδομένα με νόημα
-        </h2>
-        <p
-          data-el="Καταγράφουμε εμπόδια, λύσεις και επίπεδα προσβασιμότητας ώστε κάθε σημείο στον χάρτη να οδηγεί σε δράση."
-          data-en="We document barriers, solutions, and accessibility levels so each map point leads to action."
-        >
-          Καταγράφουμε εμπόδια, λύσεις και επίπεδα προσβασιμότητας ώστε κάθε
-          σημείο στον χάρτη να οδηγεί σε δράση.
+        <p class="eyebrow">{{ t("Τι καταγράφουμε", "What we capture") }}</p>
+        <h2 id="about-title">{{ t("Δεδομένα με νόημα", "Meaningful data") }}</h2>
+        <p>
+          {{ t(
+            "Καταγράφουμε εμπόδια, λύσεις και επίπεδα προσβασιμότητας ώστε κάθε σημείο στον χάρτη να οδηγεί σε δράση.",
+            "We document barriers, solutions, and accessibility levels so each map point leads to action."
+          ) }}
         </p>
         <div class="card-grid">
           <article class="card">
-            <h3 data-el="Εμπόδια" data-en="Barriers">Εμπόδια</h3>
-            <p
-              data-el="Σπασμένα πεζοδρόμια, έλλειψη ραμπών, στενές είσοδοι και προσωρινά εμπόδια."
-              data-en="Broken sidewalks, missing ramps, narrow entrances, and temporary obstacles."
-            >
-              Σπασμένα πεζοδρόμια, έλλειψη ραμπών, στενές είσοδοι και προσωρινά
-              εμπόδια.
+            <h3>{{ t("Εμπόδια", "Barriers") }}</h3>
+            <p>
+              {{ t(
+                "Σπασμένα πεζοδρόμια, έλλειψη ραμπών, στενές είσοδοι και προσωρινά εμπόδια.",
+                "Broken sidewalks, missing ramps, narrow entrances, and temporary obstacles."
+              ) }}
             </p>
             <ul class="checklist">
-              <li data-el="Τοποθεσία" data-en="Location">Τοποθεσία</li>
-              <li data-el="Κρισιμότητα" data-en="Severity">Κρισιμότητα</li>
-              <li data-el="Ημερομηνία" data-en="Timestamp">Ημερομηνία</li>
+              <li>{{ t("Τοποθεσία", "Location") }}</li>
+              <li>{{ t("Κρισιμότητα", "Severity") }}</li>
+              <li>{{ t("Ημερομηνία", "Timestamp") }}</li>
             </ul>
           </article>
           <article class="card">
-            <h3 data-el="Λύσεις" data-en="Solutions">Λύσεις</h3>
-            <p
-              data-el="Σημεία που λειτουργούν σωστά: ράμπες, περάσματα, διαθέσιμες τουαλέτες."
-              data-en="Places that work well: ramps, crossings, accessible toilets."
-            >
-              Σημεία που λειτουργούν σωστά: ράμπες, περάσματα, διαθέσιμες
-              τουαλέτες.
+            <h3>{{ t("Λύσεις", "Solutions") }}</h3>
+            <p>
+              {{ t(
+                "Σημεία που λειτουργούν σωστά: ράμπες, περάσματα, διαθέσιμες τουαλέτες.",
+                "Places that work well: ramps, crossings, accessible toilets."
+              ) }}
             </p>
             <ul class="checklist">
-              <li data-el="Θετικά παραδείγματα" data-en="Positive examples">
-                Θετικά παραδείγματα
-              </li>
-              <li data-el="Πιστοποίηση" data-en="Verification">Πιστοποίηση</li>
-              <li data-el="Συνεχής ενημέρωση" data-en="Ongoing updates">
-                Συνεχής ενημέρωση
-              </li>
+              <li>{{ t("Θετικά παραδείγματα", "Positive examples") }}</li>
+              <li>{{ t("Πιστοποίηση", "Verification") }}</li>
+              <li>{{ t("Συνεχής ενημέρωση", "Ongoing updates") }}</li>
             </ul>
           </article>
           <article class="card">
-            <h3 data-el="Κατάσταση" data-en="Accessibility level">Κατάσταση</h3>
-            <p
-              data-el="Κατηγορίες που δείχνουν το επίπεδο προσβασιμότητας ενός σημείου ή διαδρομής."
-              data-en="Categories that show the accessibility level of a location or route."
-            >
-              Κατηγορίες που δείχνουν το επίπεδο προσβασιμότητας ενός σημείου ή
-              διαδρομής.
+            <h3>{{ t("Κατάσταση", "Accessibility level") }}</h3>
+            <p>
+              {{ t(
+                "Κατηγορίες που δείχνουν το επίπεδο προσβασιμότητας ενός σημείου ή διαδρομής.",
+                "Categories that show the accessibility level of a location or route."
+              ) }}
             </p>
             <ul class="checklist">
-              <li data-el="Πλήρης πρόσβαση" data-en="Full access">
-                Πλήρης πρόσβαση
-              </li>
-              <li data-el="Μερική πρόσβαση" data-en="Partial access">
-                Μερική πρόσβαση
-              </li>
-              <li data-el="Ανύπαρκτη πρόσβαση" data-en="No access">
-                Ανύπαρκτη πρόσβαση
-              </li>
+              <li>{{ t("Πλήρης πρόσβαση", "Full access") }}</li>
+              <li>{{ t("Μερική πρόσβαση", "Partial access") }}</li>
+              <li>{{ t("Ανύπαρκτη πρόσβαση", "No access") }}</li>
             </ul>
           </article>
         </div>
       </section>
 
       <section id="how" aria-labelledby="how-title">
-        <p class="eyebrow" data-el="Πώς λειτουργεί" data-en="How it works">
-          Πώς λειτουργεί
-        </p>
-        <h2 id="how-title" data-el="Σαφή βήματα" data-en="Clear steps">
-          Σαφή βήματα
-        </h2>
-        <p
-          data-el="Κάθε καταγραφή καταλήγει σε χρήσιμη πληροφορία για την κοινότητα και τους ενδιαφερόμενους φορείς."
-          data-en="Each entry becomes useful information for the community and, later, for the relevant stakeholders."
-        >
-          Κάθε καταγραφή καταλήγει σε χρήσιμη πληροφορία για την κοινότητα και,
-          έπειτα, για τους ενδιαφερόμενους φορείς.
+        <p class="eyebrow">{{ t("Πώς λειτουργεί", "How it works") }}</p>
+        <h2 id="how-title">{{ t("Σαφή βήματα", "Clear steps") }}</h2>
+        <p>
+          {{ t(
+            "Κάθε καταγραφή καταλήγει σε χρήσιμη πληροφορία για την κοινότητα και τους ενδιαφερόμενους φορείς.",
+            "Each entry becomes useful information for the community and, later, for the relevant stakeholders."
+          ) }}
         </p>
         <ol class="steps">
           <li class="step">
-            <span class="step-title" data-el="Καταγραφή" data-en="Capture"
-              >Καταγραφή</span
-            >
-            <p
-              data-el="Οι πολίτες αξιολογούν την προσβασιμότητα ενός σημείου ενδιαφέροντος (κτίριο, πεζοδρόμιο, δημόσιος χώρος), καταγράφουν τυχόν εμπόδια που συναντούν και αφήνουν σχόλια ή προτάσεις για βελτίωση. Η διαδικασία είναι απλή και προσβάσιμη, ώστε να μπορεί να συμμετέχει οποιοσδήποτε."
-              data-en="Citizens evaluate the accessibility of a point of interest (building, sidewalk, public space), record any obstacles they encounter, and leave comments or suggestions for improvement. The process is simple and accessible, so anyone can participate."
-            >
-              Οι πολίτες αξιολογούν την προσβασιμότητα ενός σημείου
-              ενδιαφέροντος (κτίριο, πεζοδρόμιο, δημόσιος χώρος), καταγράφουν
-              τυχόν εμπόδια που συναντούν και αφήνουν σχόλια ή προτάσεις για
-              βελτίωση. Η διαδικασία είναι απλή και προσβάσιμη, ώστε να μπορεί
-              να συμμετέχει οποιοσδήποτε."
+            <span class="step-title">{{ t("Καταγραφή", "Capture") }}</span>
+            <p>
+              {{ t(
+                "Οι πολίτες αξιολογούν την προσβασιμότητα ενός σημείου ενδιαφέροντος (κτίριο, πεζοδρόμιο, δημόσιος χώρος), καταγράφουν τυχόν εμπόδια που συναντούν και αφήνουν σχόλια ή προτάσεις για βελτίωση. Η διαδικασία είναι απλή και προσβάσιμη, ώστε να μπορεί να συμμετέχει οποιοσδήποτε.",
+                "Citizens evaluate the accessibility of a point of interest (building, sidewalk, public space), record any obstacles they encounter, and leave comments or suggestions for improvement. The process is simple and accessible, so anyone can participate."
+              ) }}
             </p>
           </li>
           <li class="step">
-            <span class="step-title" data-el="Δομή" data-en="Structure"
-              >Δομή</span
-            >
-            <p
-              data-el="Η πλατφόρμα επαληθεύει, κατηγοριοποιεί και αποδίδει επίπεδο πρόσβασης ώστε κάθε σημείο να είναι συγκρίσιμο και χρήσιμο."
-              data-en="The platform verifies, categorizes, and assigns accessibility levels so each point is comparable and useful."
-            >
-              Η πλατφόρμα επαληθεύει, κατηγοριοποιεί και αποδίδει επίπεδο
-              πρόσβασης ώστε κάθε σημείο να είναι συγκρίσιμο και χρήσιμο.
+            <span class="step-title">{{ t("Δομή", "Structure") }}</span>
+            <p>
+              {{ t(
+                "Η πλατφόρμα επαληθεύει, κατηγοριοποιεί και αποδίδει επίπεδο πρόσβασης ώστε κάθε σημείο να είναι συγκρίσιμο και χρήσιμο.",
+                "The platform verifies, categorizes, and assigns accessibility levels so each point is comparable and useful."
+              ) }}
             </p>
           </li>
           <li class="step">
-            <span class="step-title" data-el="Δράση" data-en="Action"
-              >Δράση</span
-            >
-            <p
-              data-el="Οι πολίτες βλέπουν ενημερωμένο χάρτη και πιο ασφαλείς διαδρομές. Όταν ωριμάσουν τα δεδομένα, τα συνθέτουμε σε μορφές που μπορούν να αξιοποιηθούν από συνεργαζόμενους φορείς."
-              data-en="Citizens see an updated map and safer routes. When the data matures, we synthesize it into formats that partners can make use of."
-            >
-              Οι πολίτες βλέπουν ενημερωμένο χάρτη και πιο ασφαλείς διαδρομές.
-              Όταν ωριμάσουν τα δεδομένα, τα συνθέτουμε σε μορφές που μπορούν να
-              αξιοποιηθούν από συνεργαζόμενους φορείς.
+            <span class="step-title">{{ t("Δράση", "Action") }}</span>
+            <p>
+              {{ t(
+                "Οι πολίτες βλέπουν ενημερωμένο χάρτη και πιο ασφαλείς διαδρομές. Όταν ωριμάσουν τα δεδομένα, τα συνθέτουμε σε μορφές που μπορούν να αξιοποιηθούν από συνεργαζόμενους φορείς.",
+                "Citizens see an updated map and safer routes. When the data matures, we synthesize it into formats that partners can make use of."
+              ) }}
             </p>
           </li>
         </ol>
@@ -437,43 +321,33 @@
 
       <section id="partners" aria-labelledby="partners-title">
         <div class="callout">
-          <p class="eyebrow" data-el="Για δήμους" data-en="For cities">
-            Για δήμους
-          </p>
-          <h2
-            id="partners-title"
-            data-el="Δεδομένα που στηρίζουν αποφάσεις"
-            data-en="Data that supports decision-making"
-          >
-            Δεδομένα που στηρίζουν αποφάσεις
+          <p class="eyebrow">{{ t("Για δήμους", "For cities") }}</p>
+          <h2 id="partners-title">
+            {{ t("Δεδομένα που στηρίζουν αποφάσεις", "Data that supports decision-making") }}
           </h2>
-          <p
-            data-el="Φτιάχνουμε μια κοινή βάση προσβασιμότητας για να υπάρχει ενιαία εικόνα ανά γειτονιά και σημείο."
-            data-en="We build a shared accessibility base so there is a consistent view by neighborhood and location."
-          >
-            Φτιάχνουμε μια κοινή βάση προσβασιμότητας για να υπάρχει ενιαία
-            εικόνα ανά γειτονιά και σημείο.
+          <p>
+            {{ t(
+              "Φτιάχνουμε μια κοινή βάση προσβασιμότητας για να υπάρχει ενιαία εικόνα ανά γειτονιά και σημείο.",
+              "We build a shared accessibility base so there is a consistent view by neighborhood and location."
+            ) }}
           </p>
           <div class="split">
             <div>
-              <h3 data-el="Κοινό πλαίσιο" data-en="Shared framework">
-                Κοινό πλαίσιο
-              </h3>
-              <p
-                data-el="Σταθερές κατηγορίες και πεδία ώστε όλοι να μιλούν την ίδια γλώσσα."
-                data-en="Stable categories and fields so everyone speaks the same language."
-              >
-                Σταθερές κατηγορίες και πεδία ώστε όλοι να μιλούν την ίδια
-                γλώσσα.
+              <h3>{{ t("Κοινό πλαίσιο", "Shared framework") }}</h3>
+              <p>
+                {{ t(
+                  "Σταθερές κατηγορίες και πεδία ώστε όλοι να μιλούν την ίδια γλώσσα.",
+                  "Stable categories and fields so everyone speaks the same language."
+                ) }}
               </p>
             </div>
             <div>
-              <h3 data-el="Ορατότητα" data-en="Visibility">Ορατότητα</h3>
-              <p
-                data-el="Τεκμηριωμένη εικόνα των σημείων που χρειάζονται προσοχή."
-                data-en="An evidence-based view of the points that need attention."
-              >
-                Τεκμηριωμένη εικόνα των σημείων που χρειάζονται προσοχή.
+              <h3>{{ t("Ορατότητα", "Visibility") }}</h3>
+              <p>
+                {{ t(
+                  "Τεκμηριωμένη εικόνα των σημείων που χρειάζονται προσοχή.",
+                  "An evidence-based view of the points that need attention."
+                ) }}
               </p>
             </div>
           </div>
@@ -481,43 +355,32 @@
       </section>
 
       <section id="contact" aria-labelledby="contact-title">
-        <p class="eyebrow" data-el="Συμμετοχή" data-en="Get involved">
-          Συμμετοχή
-        </p>
-        <h2
-          id="contact-title"
-          data-el="Ας σχεδιάσουμε την πόλη όπως τη θέλουμε"
-          data-en="Let’s design the city we want"
-        >
-          Ας σχεδιάσουμε την πόλη όπως τη θέλουμε
+        <p class="eyebrow">{{ t("Συμμετοχή", "Get involved") }}</p>
+        <h2 id="contact-title">
+          {{ t("Ας σχεδιάσουμε την πόλη όπως τη θέλουμε", "Let’s design the city we want") }}
         </h2>
         <div class="split">
           <div class="card">
-            <h3 data-el="Για πολίτες" data-en="For citizens">Για πολίτες</h3>
-            <p
-              data-el="Στείλε μας παρατηρήσεις ή ιδέες για συνεργασίες με την κοινότητα."
-              data-en="Send us observations or ideas for community collaboration."
-            >
-              Στείλε μας παρατηρήσεις ή ιδέες για συνεργασίες με την κοινότητα.
+            <h3>{{ t("Για πολίτες", "For citizens") }}</h3>
+            <p>
+              {{ t(
+                "Στείλε μας παρατηρήσεις ή ιδέες για συνεργασίες με την κοινότητα.",
+                "Send us observations or ideas for community collaboration."
+              ) }}
             </p>
           </div>
           <div class="card">
-            <h3 data-el="Για δήμους & φορείς" data-en="For municipalities">
-              Για δήμους & φορείς
-            </h3>
-            <p
-              data-el="Επικοινωνήστε για συνεργασία, πιλοτικές δράσεις ή ανταλλαγή πληροφοριών."
-              data-en="Reach out for collaboration, pilot initiatives, or information exchange."
-            >
-              Επικοινωνήστε για συνεργασία, πιλοτικές δράσεις ή ανταλλαγή
-              πληροφοριών.
+            <h3>{{ t("Για δήμους & φορείς", "For municipalities") }}</h3>
+            <p>
+              {{ t(
+                "Επικοινωνήστε για συνεργασία, πιλοτικές δράσεις ή ανταλλαγή πληροφοριών.",
+                "Reach out for collaboration, pilot initiatives, or information exchange."
+              ) }}
             </p>
           </div>
         </div>
         <div class="callout spaced">
-          <p data-el="Email συνεργασίας" data-en="Collaboration email">
-            Email συνεργασίας
-          </p>
+          <p>{{ t("Email συνεργασίας", "Collaboration email") }}</p>
           <p>
             <a href="mailto:info@accessity.gr">info@accessity.gr</a>
           </p>
@@ -529,12 +392,12 @@
       <div class="wrap">
         <span id="copyright"></span>
         <div class="footer-links">
-          <a href="#about" data-el="Σχετικά" data-en="About">Σχετικά</a>
-          <a href="#how" data-el="Διαδικασία" data-en="Process">Διαδικασία</a>
-          <a href="#contact" data-el="Επικοινωνία" data-en="Contact">
-            Επικοινωνία
+          <a href="#about">{{ t("Σχετικά", "About") }}</a>
+          <a href="#how">{{ t("Διαδικασία", "Process") }}</a>
+          <a href="#contact">
+            {{ t("Επικοινωνία", "Contact") }}
           </a>
-          <a href="blog.html" data-el="Νέα" data-en="News">Νέα</a>
+          <a href="blog.html">{{ t("Νέα", "News") }}</a>
         </div>
       </div>
     </footer>
@@ -555,6 +418,6 @@
       </svg>
     </button>
 
-    <script src="assets/app.v4.js" defer></script>
+    <script src="{{ rootPrefix }}assets/app.v4.js" defer></script>
   </body>
 </html>

@@ -1,52 +1,53 @@
 ---
 layout: layouts/base.njk
-permalink: blog.html
-assetPrefix: ""
+pagination:
+  data: site.languages
+  size: 1
+  alias: lang
+permalink: "{{ 'en/' if lang == 'en' }}blog.html"
 navCurrent: blog
 pageTitleEl: Accessity — Νέα & Ενημερώσεις
 pageTitleEn: Accessity — News & Updates
 pageDescriptionEl: Νέα, ανακοινώσεις και ενημερώσεις από την ομάδα της Accessity.
 pageDescriptionEn: News, announcements, and updates from the Accessity team.
-eleventyComputed:
-  canonicalUrl: "{{ site.url }}{{ page.url }}"
 ---
 <main id="main" class="wrap" tabindex="-1">
   <section class="blog-hero" aria-labelledby="blog-hero-title">
-    <p class="eyebrow" data-el="{{ site.blog.eyebrowEl }}" data-en="{{ site.blog.eyebrowEn }}">
-      {{ site.blog.eyebrowEl }}
+    <p class="eyebrow">
+      {{ t(site.blog.eyebrowEl, site.blog.eyebrowEn) }}
     </p>
-    <h1 id="blog-hero-title" data-el="{{ site.blog.titleEl }}" data-en="{{ site.blog.titleEn }}">
-      {{ site.blog.titleEl }}
+    <h1 id="blog-hero-title">
+      {{ t(site.blog.titleEl, site.blog.titleEn) }}
     </h1>
-    <p class="lead" data-el="{{ site.blog.leadEl }}" data-en="{{ site.blog.leadEn }}">
-      {{ site.blog.leadEl }}
+    <p class="lead">
+      {{ t(site.blog.leadEl, site.blog.leadEn) }}
     </p>
   </section>
 
-  <section aria-label="Αναρτήσεις / Posts">
+  <section aria-label="{{ t('Αναρτήσεις', 'Posts') }}">
     <div class="blog-grid">
       {% for post in publishedPosts %}
       <article class="blog-card">
         <div class="blog-card__media{% if post.cardTheme == 'alt' %} blog-card__media--alt{% endif %}" aria-hidden="true"></div>
         <div class="blog-card__body">
           <div class="blog-card__meta">
-            <span class="blog-tag{% if post.tagStyle == 'announcement' %} blog-tag--announcement{% endif %}" data-el="{{ post.categoryEl }}" data-en="{{ post.categoryEn }}">
-              {{ post.categoryEl }}
+            <span class="blog-tag{% if post.tagStyle == 'announcement' %} blog-tag--announcement{% endif %}">
+              {{ t(post.categoryEl, post.categoryEn) }}
             </span>
-            <time datetime="{{ post.publishDate }}" class="blog-date" data-el="{{ post.dateLabelEl }}" data-en="{{ post.dateLabelEn }}">
-              {{ post.dateLabelEl }}
+            <time datetime="{{ post.publishDate }}" class="blog-date">
+              {{ t(post.dateLabelEl, post.dateLabelEn) }}
             </time>
           </div>
-          <h2 id="post-title-{{ post.slug }}" class="blog-card__title" data-el="{{ post.titleEl }}" data-en="{{ post.titleEn }}">
-            <a href="blog/{{ post.slug }}.html" class="blog-card__title-link" data-el="{{ post.titleEl }}" data-en="{{ post.titleEn }}">
-              {{ post.titleEl }}
+          <h2 id="post-title-{{ post.slug }}" class="blog-card__title">
+            <a href="blog/{{ post.slug }}.html" class="blog-card__title-link">
+              {{ t(post.titleEl, post.titleEn) }}
             </a>
           </h2>
-          <p class="blog-card__excerpt" data-el="{{ post.excerptEl }}" data-en="{{ post.excerptEn }}">
-            {{ post.excerptEl }}
+          <p class="blog-card__excerpt">
+            {{ t(post.excerptEl, post.excerptEn) }}
           </p>
           <a href="blog/{{ post.slug }}.html" class="blog-card__link" aria-labelledby="read-more-{{ post.slug }} post-title-{{ post.slug }}">
-            <span id="read-more-{{ post.slug }}" data-el="{{ site.ui.readMoreEl }}" data-en="{{ site.ui.readMoreEn }}">{{ site.ui.readMoreEl }}</span>
+            <span id="read-more-{{ post.slug }}">{{ t(site.ui.readMoreEl, site.ui.readMoreEn) }}</span>
             <span aria-hidden="true">→</span>
           </a>
         </div>

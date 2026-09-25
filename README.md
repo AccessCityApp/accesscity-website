@@ -15,7 +15,7 @@ Preliminary static website for Accessity, focused on:
 
 ## Tech
 
-- Static site with **HTML**, **CSS**, and a small **Eleventy** build for the blog
+- Static site with **HTML**, **CSS**, and a small **Eleventy** build that renders every page in Greek and English
 - Blog content stored as structured JSON files under `content/blog/`
 - Blog editing configured for **Pages CMS** via `.pages.yml`
 
@@ -31,7 +31,10 @@ Preliminary static website for Accessity, focused on:
   `.github/workflows/deploy-production.yml` — otherwise returning visitors keep the
   old file against new HTML. Keep publishing the old name as well (the aliases in
   `.eleventy.js`): cached HTML still requests it, and the deploy deletes anything
-  missing from `dist/`.
+  missing from `dist/`. `app.v3.js` is kept unchanged rather than aliased to
+  `app.v4.js`, because pages cached before the `/en/` URLs still rely on its
+  in-place language toggle. Delete it, its aliases and its payload check once
+  that HTML has aged out of caches (180 days after the `/en/` deploy).
 - `content/blog/` — structured blog post entries
 - `src/` — Eleventy templates and generated blog sources
 - `.pages.yml` — Pages CMS configuration for browser-based blog editing
@@ -65,7 +68,7 @@ Production deploys are automated with a GitHub Actions workflow that uploads the
 Files deployed to production:
 
 - generated `dist/` output
-- includes `index.html`, `blog.html`, `blog/*.html`, `robots.txt`, `sitemap.xml`, `assets/`, and `media/`
+- includes `index.html`, `blog.html`, `blog/*.html`, their English versions under `en/`, `robots.txt`, `sitemap.xml`, `assets/`, and `media/`
 
 Files excluded from deployment:
 
@@ -141,7 +144,8 @@ Production domain:
 
 ## Editing Content
 
-Landing page content lives in `src/index.njk`.
+Landing page content lives in `src/index.njk`. Each string is written as
+`{{ t("Greek", "English") }}`, and the template is rendered once per language.
 
 Blog content now lives in `content/blog/*.json` and is intended to be edited through Pages CMS.
 
@@ -211,22 +215,25 @@ Image links are saved in content and served from `/media/...`.
 
 ## Bilingual Setup (Greek / English)
 
-The landing page supports:
+Every page is built in both languages:
 
-- Greek (default)
-- English
+- Greek (default) at the root: `/`, `/blog.html`, `/blog/<slug>.html`
+- English under `/en/`: `/en/`, `/en/blog.html`, `/en/blog/<slug>.html`
+
+Each version is rendered in its own language at build time, including
+`<html lang>`, the title and the meta description, so no JavaScript decides it.
 
 Language switching:
 
-- Accessible toggle button
-- Updates `<html lang="">`
-- Updates page title + meta description dynamically
-- Works without page reload
+- The EN/EL link in the header opens the same page in the other language
+- The browser's language no longer switches the page; search engines send
+  people to the right version through `hreflang`
 
 SEO:
 
-- `hreflang="el"` and `hreflang="en"` included
-- Canonical points to main domain
+- Each page's canonical is its own URL
+- Every page lists both versions with `hreflang="el"` and `hreflang="en"`, and
+  `x-default` points at the Greek version
 - Structured data remains language neutral (brand-level)
 
 ## Contact

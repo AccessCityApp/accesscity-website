@@ -1,82 +1,9 @@
-const toggle = document.getElementById("lang-toggle");
-const html = document.documentElement;
-const title = document.getElementById("page-title");
-const metaDescription = document.getElementById("meta-description");
 const scrollTopButton = document.getElementById("scroll-top");
 // Only the homepage logo links to #top; on blog pages it must navigate home.
 const brandLink = document.querySelector(".brand[href^='#']");
 const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
 ).matches;
-
-let currentLang = "el";
-
-function detectPreferredLanguage() {
-    const candidates = Array.isArray(navigator.languages)
-        ? navigator.languages
-        : [navigator.language || "el"];
-    const normalized = candidates
-        .filter(Boolean)
-        .map((value) => value.toLowerCase());
-    const prefersEnglish = normalized.some((value) => value.startsWith("en"));
-    const prefersGreek = normalized.some((value) => value.startsWith("el"));
-
-    if (prefersEnglish && !prefersGreek) {
-        return "en";
-    }
-
-    return "el";
-}
-
-function setLanguage(lang) {
-    currentLang = lang;
-    html.lang = lang;
-
-    document.querySelectorAll("[data-el]").forEach((el) => {
-        const localizedValue = el.getAttribute("data-" + lang);
-        if (!localizedValue) return;
-
-        // Keep nested translatable markup intact (e.g. linked blog titles inside headings).
-        const hasTranslatableChild = Array.from(el.children).some((child) =>
-            child.hasAttribute("data-el")
-        );
-        if (hasTranslatableChild) return;
-
-        el.textContent = localizedValue;
-    });
-
-    document.querySelectorAll("[data-lang-block]").forEach((el) => {
-        el.hidden = el.getAttribute("data-lang-block") !== lang;
-    });
-
-    const pageStrings = window.PAGE_LANG_STRINGS && window.PAGE_LANG_STRINGS[lang];
-
-    if (lang === "el") {
-        title.textContent =
-            (pageStrings && pageStrings.title) ||
-            "Accessity — Χαρτογράφηση & βελτίωση αστικής προσβασιμότητας";
-        metaDescription.content =
-            (pageStrings && pageStrings.description) ||
-            "Η Accessity μετατρέπει παρατηρήσεις σε δομημένα δεδομένα για πιο προσβάσιμες πόλεις.";
-        toggle.textContent = "EN";
-        toggle.setAttribute("aria-label", "Change language to English");
-    } else {
-        title.textContent =
-            (pageStrings && pageStrings.title) ||
-            "Accessity — Urban Accessibility Data Platform";
-        metaDescription.content =
-            (pageStrings && pageStrings.description) ||
-            "Accessity turns accessibility observations into structured data that supports inclusive cities.";
-        toggle.textContent = "EL";
-        toggle.setAttribute("aria-label", "Αλλαγή γλώσσας στα Ελληνικά");
-    }
-}
-
-toggle.addEventListener("click", () => {
-    setLanguage(currentLang === "el" ? "en" : "el");
-});
-
-setLanguage(detectPreferredLanguage());
 
 if (scrollTopButton) {
     const toggleScrollTop = () => {
