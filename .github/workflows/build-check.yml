@@ -1,0 +1,48 @@
+name: Build Check
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**/*.md"
+      - .github/**
+      - .vscode/**
+      - .pages.yml
+      - .gitignore
+      - deploy-production.command
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: "Pages CMS action payload (optional)"
+        required: false
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Verify generated output
+        run: |
+          set -euo pipefail
+          test -f dist/index.html
+          test -f dist/blog.html
+          test -f dist/sitemap.xml
+          test -d dist/blog
+          test -d dist/assets

@@ -15,24 +15,43 @@ Preliminary static website for Accessity, focused on:
 
 ## Tech
 
-- Pure **HTML** + **CSS** (inline in `index.html` for simplicity)
-- No build step required
+- Static site with **HTML**, **CSS**, and a small **Eleventy** build for the blog
+- Blog content stored as structured JSON files under `content/blog/`
+- Blog editing configured for **Pages CMS** via `.pages.yml`
 
 ## Project Structure
 
 - `index.html` — the landing page
-- (optional) `robots.txt`
-- (optional) `sitemap.xml`
-- (optional) `assets/` — logos, social preview image, press kit PDFs, etc.
+- `assets/` — logos, styles, scripts, and shared assets
+
+  Filenames carry a version suffix (`styles.v2.css`, `app.v3.js`, `logo.v2.png`).
+  SiteGround serves these with a one-year `Cache-Control`, so when you change one,
+  bump the suffix and update the references in `index.html`,
+  `src/_includes/layouts/base.njk` and the payload check in
+  `.github/workflows/deploy-production.yml` — otherwise returning visitors keep the
+  old file against new HTML. Keep publishing the old name as well (the aliases in
+  `.eleventy.js`): cached HTML still requests it, and the deploy deletes anything
+  missing from `dist/`.
+- `content/blog/` — structured blog post entries
+- `src/` — Eleventy templates and generated blog sources
+- `.pages.yml` — Pages CMS configuration for browser-based blog editing
+- `dist/` — generated build output used for deployment
 
 ## Local Preview
 
-Just open the file in a browser:
+For the landing page only, you can still open `index.html` directly in a browser.
 
-- macOS: double click `index.html`
-- or use a tiny local server (recommended so URLs behave like production):
-  - `python3 -m http.server 5173`
-  - then visit `http://localhost:5173`
+For the full site, including the generated blog:
+
+- `npm install`
+- `npm run build`
+- open `dist/index.html` in a browser
+
+For local development with a preview server:
+
+- `npm start`
+
+- Eleventy will serve the generated site locally.
 
 ## Deployment
 
@@ -47,10 +66,8 @@ Production deploys are automated with a GitHub Actions workflow that uploads the
 
 Files deployed to production:
 
-- `index.html`
-- `robots.txt`
-- `sitemap.xml`
-- `assets/`
+- generated `dist/` output
+- includes `index.html`, `blog.html`, `blog/*.html`, `robots.txt`, `sitemap.xml`, `assets/`, and `media/`
 
 Files excluded from deployment:
 
@@ -74,11 +91,25 @@ If your SiteGround account requires FTPS-only configuration later, update the wo
 
 #### Trigger Options
 
-The workflow supports one production trigger:
+The production workflow supports one trigger:
 
 - manual deploy through GitHub Actions `workflow_dispatch`
 
 There is also a local Mac trigger script at `./deploy-production.command`.
+
+### CMS Actions
+
+Pages CMS is configured with two repository-level actions in `.pages.yml`:
+
+- `Build check` → triggers `.github/workflows/build-check.yml`
+- `Deploy production` → triggers `.github/workflows/deploy-production.yml`
+
+Both actions are available from the **Actions** area in Pages CMS.
+
+Recommended usage:
+
+1. Run **Build check** after editing content.
+2. If it passes and content is approved, run **Deploy production**.
 
 #### Local Mac Deploy Script
 
@@ -112,16 +143,52 @@ Production domain:
 
 ## Editing Content
 
-Open `index.html` and edit the text within sections:
+Landing page content still lives in `index.html`.
 
-- Hero
-- Mission / How it works
-- Who it helps
-- Get involved
-- FAQ
-- Contact
+Blog content now lives in `content/blog/*.json` and is intended to be edited through Pages CMS.
 
-**Tip:** Keep headings hierarchical (`h1` once, then `h2`, then `h3`) and avoid skipping levels.
+### Blog editor workflow
+
+1. Open the hosted Pages CMS app and connect this repository.
+2. Use the `Blog posts` collection defined in `.pages.yml`.
+3. Create or edit a post entry.
+4. Save the entry so it writes back to `content/blog/<slug>.json`.
+5. Trigger the production deploy workflow, or run a local build first if you want to review the generated output.
+
+You can also run **Build check** and **Deploy production** directly from the Pages CMS **Actions** panel.
+
+### Current blog entry model
+
+Each blog post entry includes:
+
+- core fields: `slug`, `status`, `publishDate`, `categoryKey`
+- language groups: `greek` and `english`
+- per-language fields: `title`, `excerpt`, optional `seoTitle`, optional `seoDescription`, `body`
+- internal visual fields (`tagStyle`, `cardTheme`) that are hidden from normal editors in Pages CMS
+
+### Editor behavior and fallbacks
+
+- body fields use the rich text editor and are saved as Markdown
+- if `seoTitle` is empty, the corresponding post title is used
+- if `seoDescription` is empty, the corresponding excerpt is used
+- category labels are derived from `categoryKey` for both languages
+- date labels are generated from `publishDate` when not explicitly present
+
+### Adding photos in a post
+
+1. Open the post in Pages CMS.
+2. In either body field (`greek.body` or `english.body`), keep **Editor** mode active.
+3. Insert an image from the editor controls and upload/select from `media/`.
+4. Save the post.
+
+Image links are saved in content and served from `/media/...`.
+
+### Authoring tips
+
+- Keep heading hierarchy clean (`h1` once on the page, then `h2`, then `h3`).
+- Write meaningful link text (avoid generic "click here").
+- Always add alt text for images.
+- Prefer clear, plain language.
 
 ## SEO Checklist (Production)
 

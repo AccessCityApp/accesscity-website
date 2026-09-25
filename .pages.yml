@@ -1,0 +1,175 @@
+media:
+  input: media
+  output: /media
+
+actions:
+  - name: build-site
+    label: Build check
+    workflow: build-check.yml
+    confirm:
+      title: Run build check?
+      message: This runs a full install and static build on the current branch.
+      button: Run build
+  - name: deploy-production
+    label: Deploy production
+    workflow: deploy-production.yml
+    confirm:
+      title: Deploy to production?
+      message: This publishes the current branch build to accessity.gr.
+      button: Deploy now
+
+content:
+  - name: blog
+    label: Blog posts
+    type: collection
+    path: content/blog
+    subfolders: false
+    format: json
+    filename:
+      template: "{slug}.json"
+      field: false
+    view:
+      primary: greek.title
+      fields:
+        - greek.title
+        - publishDate
+        - status
+      default:
+        sort: publishDate
+        order: desc
+    fields:
+      - name: slug
+        label: Slug
+        type: string
+        description: URL-safe name used in the blog post link, for example "city-access-audit".
+        pattern:
+          regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          message: Use lowercase letters, numbers, and hyphens only.
+        required: true
+      - name: status
+        label: Status
+        type: select
+        description: Draft keeps the post hidden. Published makes it appear on the live blog listing.
+        default: draft
+        required: true
+        options:
+          values:
+            - name: draft
+              label: Draft
+            - name: published
+              label: Published
+      - name: publishDate
+        label: Publish date
+        type: date
+        description: Controls display order on the blog. Newer dates appear first.
+        required: true
+      - name: categoryKey
+        label: Category
+        type: select
+        description: Select one category once. It is mapped automatically to Greek and English labels.
+        required: true
+        default: updates
+        options:
+          values:
+            - name: announcement
+              label: Announcement / Ανακοίνωση
+            - name: partnerships
+              label: Partnerships / Συνεργασίες
+            - name: updates
+              label: Updates / Ενημερώσεις
+            - name: events
+              label: Events / Εκδηλώσεις
+      - name: tagStyle
+        label: Tag style
+        type: select
+        description: Internal visual style for the category badge.
+        hidden: true
+        default: default
+        options:
+          values:
+            - name: default
+              label: Default
+            - name: announcement
+              label: Announcement
+      - name: cardTheme
+        label: Card theme
+        type: select
+        description: Internal visual style for the blog card.
+        hidden: true
+        default: default
+        options:
+          values:
+            - name: default
+              label: Default
+            - name: alt
+              label: Alternate
+      - name: greek
+        label: Greek content
+        description: "Public-facing Greek content for this post. Before publishing, check accessibility basics: clear heading order, meaningful link text, alt text for images, and plain understandable language."
+        type: object
+        fields:
+          - name: title
+            label: Title
+            type: string
+            description: Main Greek headline shown on the card and post page.
+            required: true
+          - name: excerpt
+            label: Excerpt
+            type: text
+            description: Short summary for the blog card. Keep it concise (up to 280 characters).
+            required: true
+            options:
+              maxlength: 280
+          - name: seoTitle
+            label: SEO title
+            type: string
+            description: Optional search title. If empty, the Greek title is used automatically.
+          - name: seoDescription
+            label: SEO description
+            type: text
+            description: Optional search summary. If empty, the Greek excerpt is used automatically.
+            options:
+              maxlength: 180
+          - name: body
+            label: Body
+            description: Main Greek article content. Use Editor mode for visual editing or Source mode for Markdown.
+            type: rich-text
+            required: true
+            options:
+              format: markdown
+              switcher: true
+      - name: english
+        label: English content
+        description: "Public-facing English content for this post. Before publishing, check accessibility basics: clear heading order, meaningful link text, alt text for images, and plain understandable language."
+        type: object
+        fields:
+          - name: title
+            label: Title
+            type: string
+            description: Main English headline shown on the card and post page.
+            required: true
+          - name: excerpt
+            label: Excerpt
+            type: text
+            description: Short summary for the blog card. Keep it concise (up to 280 characters).
+            required: true
+            options:
+              maxlength: 280
+          - name: seoTitle
+            label: SEO title
+            type: string
+            description: Optional search title. If empty, the English title is used automatically.
+          - name: seoDescription
+            label: SEO description
+            type: text
+            description: Optional search summary. If empty, the English excerpt is used automatically.
+            options:
+              maxlength: 180
+          - name: body
+            label: Body
+            description: Main English article content. Use Editor mode for visual editing or Source mode for Markdown.
+            type: rich-text
+            required: true
+            options:
+              format: markdown
+              switcher: true

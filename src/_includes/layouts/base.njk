@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="el">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title id="page-title">{{ pageTitleEl }}</title>
+
+    <meta
+      id="meta-description"
+      name="description"
+      content="{{ pageDescriptionEl }}"
+    />
+
+    <link rel="icon" href="{{ assetPrefix }}assets/logo.v2.png" type="image/png" />
+
+    <link rel="canonical" href="{{ canonicalUrl }}" />
+    <link rel="alternate" hreflang="el" href="{{ canonicalUrl }}?lang=el" />
+    <link rel="alternate" hreflang="en" href="{{ canonicalUrl }}?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="{{ canonicalUrl }}" />
+
+    <meta name="robots" content="index,follow" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta name="theme-color" content="#3b0db5" />
+    <meta name="color-scheme" content="light" />
+    <link rel="stylesheet" href="{{ assetPrefix }}assets/styles.v2.css" />
+
+    <script>
+      window.PAGE_LANG_STRINGS = {
+        el: {
+          title: {{ pageTitleEl | json | safe }},
+          description: {{ pageDescriptionEl | json | safe }}
+        },
+        en: {
+          title: {{ pageTitleEn | json | safe }},
+          description: {{ pageDescriptionEn | json | safe }}
+        }
+      };
+    </script>
+  </head>
+
+  <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+    <a
+      href="#main"
+      class="skip-link"
+      data-el="{{ site.ui.skipEl }}"
+      data-en="{{ site.ui.skipEn }}"
+    >
+      {{ site.ui.skipEl }}
+    </a>
+
+    <header id="top">
+      <div class="wrap nav-bar">
+        <a class="brand" href="{{ assetPrefix }}index.html" aria-label="Accessity">
+          <img class="brand-mark" src="{{ assetPrefix }}assets/logo.v2.png" alt="" />
+          <span class="brand-text">Accessity</span>
+        </a>
+        <nav aria-label="Main navigation">
+          <a href="{{ assetPrefix }}index.html#about" data-el="{{ site.ui.aboutEl }}" data-en="{{ site.ui.aboutEn }}">
+            {{ site.ui.aboutEl }}
+          </a>
+          <a href="{{ assetPrefix }}index.html#how" data-el="{{ site.ui.howEl }}" data-en="{{ site.ui.howEn }}">
+            {{ site.ui.howEl }}
+          </a>
+          <a href="{{ assetPrefix }}index.html#partners" data-el="{{ site.ui.citiesEl }}" data-en="{{ site.ui.citiesEn }}">
+            {{ site.ui.citiesEl }}
+          </a>
+          <a href="{{ assetPrefix }}index.html#contact" data-el="{{ site.ui.getInvolvedEl }}" data-en="{{ site.ui.getInvolvedEn }}">
+            {{ site.ui.getInvolvedEl }}
+          </a>
+          <a
+            href="{{ assetPrefix }}blog.html"
+            {% if navCurrent == "blog" %}aria-current="page"{% endif %}
+            data-el="{{ site.ui.newsEl }}"
+            data-en="{{ site.ui.newsEn }}"
+          >
+            {{ site.ui.newsEl }}
+          </a>
+        </nav>
+        <div class="nav-actions">
+          <a
+            class="btn btn-primary"
+            href="{{ assetPrefix }}index.html#contact"
+            data-el="{{ site.ui.contactEl }}"
+            data-en="{{ site.ui.contactEn }}"
+          >
+            {{ site.ui.contactEl }}
+          </a>
+          <button
+            id="lang-toggle"
+            class="btn btn-ghost"
+            aria-label="Change language"
+            type="button"
+          >
+            EN
+          </button>
+        </div>
+      </div>
+    </header>
+
+    {{ content | safe }}
+
+    <footer>
+      <div class="wrap">
+        <span id="copyright"></span>
+        <div class="footer-links">
+          <a href="{{ assetPrefix }}index.html#about" data-el="{{ site.ui.footerAboutEl }}" data-en="{{ site.ui.footerAboutEn }}">
+            {{ site.ui.footerAboutEl }}
+          </a>
+          <a href="{{ assetPrefix }}index.html#how" data-el="{{ site.ui.footerProcessEl }}" data-en="{{ site.ui.footerProcessEn }}">
+            {{ site.ui.footerProcessEl }}
+          </a>
+          <a href="{{ assetPrefix }}index.html#contact" data-el="{{ site.ui.footerContactEl }}" data-en="{{ site.ui.footerContactEn }}">
+            {{ site.ui.footerContactEl }}
+          </a>
+          <a href="{{ assetPrefix }}blog.html" data-el="{{ site.ui.newsEl }}" data-en="{{ site.ui.newsEn }}">
+            {{ site.ui.newsEl }}
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <button
+      class="scroll-top"
+      id="scroll-top"
+      type="button"
+      aria-label="Scroll to top"
+    >
+      <svg
+        class="scroll-top__icon"
+        viewBox="0 0 24 24"
+        role="img"
+        aria-hidden="true"
+      >
+        <path d="M12 6l6 6-1.4 1.4L13 9.8V19h-2V9.8L7.4 13.4 6 12z" />
+      </svg>
+    </button>
+
+    <script src="{{ assetPrefix }}assets/app.v3.js" defer></script>
+  </body>
+</html>

@@ -1,7 +1,19 @@
 name: Deploy Production
 
 on:
+  workflow_run:
+    workflows:
+      - Build Check
+    types:
+      - completed
+    branches:
+      - main
   workflow_dispatch:
+    inputs:
+      payload:
+        description: "Pages CMS action payload (optional)"
+        required: false
+        type: string
 
 concurrency:
   group: production-deploy
@@ -10,24 +22,41 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.ref }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
 
       - name: Verify deploy payload
         run: |
           set -euo pipefail
 
-          test -f index.html
-          test -f robots.txt
-          test -f sitemap.xml
-          test -d assets
-          test -f assets/app.js
-          test -f assets/styles.css
+          test -f dist/index.html
+          test -f dist/robots.txt
+          test -f dist/sitemap.xml
+          test -f dist/blog.html
+          test -d dist/blog
+          test -d dist/assets
+          test -f dist/assets/app.v3.js
+          test -f dist/assets/styles.v2.css
 
-          grep -q 'assets/styles.css' index.html
-          grep -q 'assets/app.js' index.html
+          grep -q 'assets/styles.v2.css' dist/index.html
+          grep -q 'assets/app.v3.js' dist/index.html
 
       - name: Deploy static site to SiteGround
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -37,7 +66,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           server-dir: accessity.gr/public_html/
-          local-dir: ./
+          local-dir: ./dist/
           exclude: |
             **/.git*
             **/.git*/**
