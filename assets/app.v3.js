@@ -3,7 +3,8 @@ const html = document.documentElement;
 const title = document.getElementById("page-title");
 const metaDescription = document.getElementById("meta-description");
 const scrollTopButton = document.getElementById("scroll-top");
-const brandLink = document.querySelector(".brand");
+// Only the homepage logo links to #top; on blog pages it must navigate home.
+const brandLink = document.querySelector(".brand[href^='#']");
 const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
 ).matches;

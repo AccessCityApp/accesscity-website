@@ -10,10 +10,12 @@ module.exports = function (eleventyConfig) {
 
     eleventyConfig.addPassthroughCopy({ "assets": "assets" });
 
-    // Cached HTML still points at the pre-v2 filenames; serve the current
+    // Cached HTML still points at older asset filenames; serve the current
     // files there too until those cache entries expire.
     eleventyConfig.addPassthroughCopy({ "assets/styles.v2.css": "assets/styles.css" });
-    eleventyConfig.addPassthroughCopy({ "assets/app.v2.js": "assets/app.js" });
+    eleventyConfig.addPassthroughCopy({ "assets/app.v3.js": "assets/app.v2.js" });
+    // Passthroughs are keyed by source path, so a second copy needs another spelling.
+    eleventyConfig.addPassthroughCopy({ "./assets/app.v3.js": "assets/app.js" });
     eleventyConfig.addPassthroughCopy({ "assets/logo.v2.png": "assets/logo.png" });
     eleventyConfig.addPassthroughCopy({ "index.html": "index.html" });
     eleventyConfig.addPassthroughCopy({ "media": "media" });
