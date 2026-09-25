@@ -1,8 +1,9 @@
 const markdownIt = require("markdown-it");
 
 module.exports = function (eleventyConfig) {
+    // Bodies are CMS-authored and output with | safe; the visual editor never emits HTML.
     const markdown = markdownIt({
-        html: true,
+        html: false,
         breaks: false,
         linkify: true,
     });
