@@ -234,6 +234,7 @@ SEO:
 - Each page's canonical is its own URL
 - Every page lists both versions with `hreflang="el"` and `hreflang="en"`, and
   `x-default` points at the Greek version
+- `sitemap.xml` lists both versions of every page
 - Structured data remains language neutral (brand-level)
 
 ## Contact
