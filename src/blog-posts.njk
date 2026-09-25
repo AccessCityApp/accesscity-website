@@ -9,10 +9,11 @@ assetPrefix: "../"
 navCurrent: blog
 bodyClass: page-post
 eleventyComputed:
-  pageTitleEl: "{{ post.seoTitleEl }}"
-  pageTitleEn: "{{ post.seoTitleEn }}"
-  pageDescriptionEl: "{{ post.seoDescriptionEl }}"
-  pageDescriptionEn: "{{ post.seoDescriptionEn }}"
+  # Raw on purpose: base.njk escapes these where it outputs them.
+  pageTitleEl: "{{ post.seoTitleEl | safe }}"
+  pageTitleEn: "{{ post.seoTitleEn | safe }}"
+  pageDescriptionEl: "{{ post.seoDescriptionEl | safe }}"
+  pageDescriptionEn: "{{ post.seoDescriptionEn | safe }}"
   canonicalUrl: "{{ site.url }}{{ page.url }}"
 ---
 <main id="main" class="wrap post-page" tabindex="-1">
