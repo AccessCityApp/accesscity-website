@@ -43,6 +43,9 @@ jobs:
           set -euo pipefail
           test -f dist/index.html
           test -f dist/blog.html
+          test -f dist/en/index.html
+          test -f dist/en/blog.html
           test -f dist/sitemap.xml
           test -d dist/blog
+          test -d dist/en/blog
           test -d dist/assets

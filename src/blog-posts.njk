@@ -1,42 +1,42 @@
 ---
 layout: layouts/base.njk
 pagination:
-  data: publishedPosts
+  data: postPages
   size: 1
-  alias: post
-permalink: "blog/{{ post.slug }}.html"
-assetPrefix: "../"
+  alias: entry
+permalink: "{{ 'en/' if entry.lang == 'en' }}blog/{{ entry.post.slug }}.html"
 navCurrent: blog
 bodyClass: page-post
 eleventyComputed:
+  lang: "{{ entry.lang }}"
   # Raw on purpose: base.njk escapes these where it outputs them.
-  pageTitleEl: "{{ post.seoTitleEl | safe }}"
-  pageTitleEn: "{{ post.seoTitleEn | safe }}"
-  pageDescriptionEl: "{{ post.seoDescriptionEl | safe }}"
-  pageDescriptionEn: "{{ post.seoDescriptionEn | safe }}"
-  canonicalUrl: "{{ site.url }}{{ page.url }}"
+  pageTitleEl: "{{ entry.post.seoTitleEl | safe }}"
+  pageTitleEn: "{{ entry.post.seoTitleEn | safe }}"
+  pageDescriptionEl: "{{ entry.post.seoDescriptionEl | safe }}"
+  pageDescriptionEn: "{{ entry.post.seoDescriptionEn | safe }}"
 ---
+{% set post = entry.post -%}
 <main id="main" class="wrap post-page" tabindex="-1">
-  <a href="../blog.html" class="post-back" data-el="{{ site.ui.backToNewsEl }}" data-en="{{ site.ui.backToNewsEn }}">
-    {{ site.ui.backToNewsEl }}
+  <a href="../blog.html" class="post-back">
+    {{ t(site.ui.backToNewsEl, site.ui.backToNewsEn) }}
   </a>
 
   <article class="post-article">
     <header class="post-header">
       <div class="post-meta">
-        <span class="blog-tag{% if post.tagStyle == 'announcement' %} blog-tag--announcement{% endif %}" data-el="{{ post.categoryEl }}" data-en="{{ post.categoryEn }}">
-          {{ post.categoryEl }}
+        <span class="blog-tag{% if post.tagStyle == 'announcement' %} blog-tag--announcement{% endif %}">
+          {{ t(post.categoryEl, post.categoryEn) }}
         </span>
-        <time datetime="{{ post.publishDate }}" class="blog-date" data-el="{{ post.dateLabelEl }}" data-en="{{ post.dateLabelEn }}">
-          {{ post.dateLabelEl }}
+        <time datetime="{{ post.publishDate }}" class="blog-date">
+          {{ t(post.dateLabelEl, post.dateLabelEn) }}
         </time>
       </div>
-      <h1 data-el="{{ post.titleEl }}" data-en="{{ post.titleEn }}">{{ post.titleEl }}</h1>
+      <h1>{{ t(post.titleEl, post.titleEn) }}</h1>
     </header>
 
     <div class="post-body">
-      <div data-lang-block="el" lang="el">{{ post.bodyEl | markdown | safe }}</div>
-      <div data-lang-block="en" lang="en" hidden>{{ post.bodyEn | markdown | safe }}</div>
+      {# styles.v2.css sets the first paragraph's margin through [data-lang-block]. #}
+      <div data-lang-block="{{ lang }}">{{ t(post.bodyEl, post.bodyEn) | markdown | safe }}</div>
     </div>
   </article>
 </main>
