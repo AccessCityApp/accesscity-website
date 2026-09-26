@@ -110,13 +110,15 @@ check refuses to deploy without it. Change it here rather than on the server.
 
 #### Trigger Options
 
-Every push to `main` that changes the site deploys it, including saves from Pages CMS:
-**Build check** runs first, and **Deploy production** runs only if it passes. Pushes that only
-touch docs (`*.md`) or CI and editor config (`.github/`, `.vscode/`, `.pages.yml`, `.gitignore`,
-`deploy-production.command`) don't deploy.
+**Deploy production** runs after every passing **Build check** on `main`, whatever started it.
+Every push to `main` that changes the site starts Build check, including saves from Pages CMS,
+so each one deploys. So does running Build check by hand on `main`. Pushes that only touch docs
+(`*.md`) or CI and editor config (`.github/`, `.vscode/`, `.pages.yml`, `.gitignore`,
+`deploy-production.command`) don't start it, so they don't deploy.
 
 To deploy by hand, for example after a workflow-only change, run **Deploy production** from
-GitHub Actions or Pages CMS, or use the local Mac script at `./deploy-production.command`.
+GitHub Actions or Pages CMS, or use the local Mac script at `./deploy-production.command`. To
+check a build without deploying, run `npm run build` locally.
 
 ### CMS Actions
 
@@ -126,8 +128,8 @@ Pages CMS is configured with two repository-level actions in `.pages.yml`:
 - `Deploy production` → triggers `.github/workflows/deploy-production.yml`
 
 Both actions are available from the **Actions** area in Pages CMS. Saving already runs both, so
-they're only for re-running one: **Build check** to test a build, **Deploy production** to
-redeploy without a change.
+you only need them to redeploy without a change, and both publish the current `main`:
+**Deploy production** deploys directly, and **Build check** deploys once it passes.
 
 #### Local Mac Deploy Script
 
