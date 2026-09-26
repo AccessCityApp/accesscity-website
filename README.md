@@ -81,13 +81,14 @@ Files excluded from deployment:
 
 Set these repository secrets before the first deploy:
 
-- `FTP_SERVER` — your SiteGround FTP host
 - `FTP_USERNAME` — your SiteGround FTP username
 - `FTP_PASSWORD` — your SiteGround FTP password
 
-This workflow is currently configured to connect on FTP port `21`.
-
-If your SiteGround account requires FTPS-only configuration later, update the workflow at `.github/workflows/deploy-production.yml` before the next production run.
+The workflow connects over FTPS (explicit TLS on port `21`) with `security: strict`, so the
+password and files are encrypted and the server's certificate is verified. That certificate
+only covers the server's hostname, so the host is set in the workflow as
+`esm13.siteground.biz` rather than the site's domain, which fails the check. If SiteGround
+moves the site to another server, update `server:` in the workflow to the new hostname.
 
 #### Caching and redirects
 
