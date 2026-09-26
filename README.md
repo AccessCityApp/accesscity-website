@@ -63,7 +63,7 @@ You can deploy this as static hosting:
 
 ### SiteGround Production Automation
 
-Production deploys are automated with a GitHub Actions workflow that uploads the static site to SiteGround over FTP.
+Production deploys are automated with a GitHub Actions workflow that uploads the static site to SiteGround over FTPS.
 
 Files deployed to production:
 
@@ -110,11 +110,13 @@ check refuses to deploy without it. Change it here rather than on the server.
 
 #### Trigger Options
 
-The production workflow supports one trigger:
+Every push to `main` that changes the site deploys it, including saves from Pages CMS:
+**Build check** runs first, and **Deploy production** runs only if it passes. Pushes that only
+touch docs (`*.md`) or CI and editor config (`.github/`, `.vscode/`, `.pages.yml`, `.gitignore`,
+`deploy-production.command`) don't deploy.
 
-- manual deploy through GitHub Actions `workflow_dispatch`
-
-There is also a local Mac trigger script at `./deploy-production.command`.
+To deploy by hand, for example after a workflow-only change, run **Deploy production** from
+GitHub Actions or Pages CMS, or use the local Mac script at `./deploy-production.command`.
 
 ### CMS Actions
 
@@ -123,12 +125,9 @@ Pages CMS is configured with two repository-level actions in `.pages.yml`:
 - `Build check` → triggers `.github/workflows/build-check.yml`
 - `Deploy production` → triggers `.github/workflows/deploy-production.yml`
 
-Both actions are available from the **Actions** area in Pages CMS.
-
-Recommended usage:
-
-1. Run **Build check** after editing content.
-2. If it passes and content is approved, run **Deploy production**.
+Both actions are available from the **Actions** area in Pages CMS. Saving already runs both, so
+they're only for re-running one: **Build check** to test a build, **Deploy production** to
+redeploy without a change.
 
 #### Local Mac Deploy Script
 
@@ -169,13 +168,14 @@ Blog content now lives in `content/blog/*.json` and is intended to be edited thr
 
 ### Blog editor workflow
 
-1. Open the hosted Pages CMS app and connect this repository.
+1. Open the hosted Pages CMS app and pick **AccessityNGO / accessity-landing-page**, branch `main`.
 2. Use the `Blog posts` collection defined in `.pages.yml`.
 3. Create or edit a post entry.
-4. Save the entry so it writes back to `content/blog/<slug>.json`.
-5. Trigger the production deploy workflow, or run a local build first if you want to review the generated output.
+4. Save the entry so it writes back to `content/blog/<slug>.json`. Saving publishes: the commit
+   to `main` builds and deploys the site, which updates about a minute later.
 
-You can also run **Build check** and **Deploy production** directly from the Pages CMS **Actions** panel.
+Keep a post's status on **Draft** until it's ready. Drafts are saved but get no page, and they
+aren't listed on the blog or in the sitemap.
 
 ### Current blog entry model
 
