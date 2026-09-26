@@ -1,6 +1,26 @@
 # Deployed from the repo, so change it here rather than on the server.
 # Needs NGINX Direct Delivery off (Site Tools > Speed > Caching): while it is on,
-# nginx serves static files itself, ignores this file and caches HTML for 180 days.
+# nginx serves static files itself and ignores this file.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Certificate renewals fetch /.well-known/ over plain http on every hostname.
+    RewriteRule ^\.well-known/ - [L]
+
+    # The FTP deploy's bookkeeping, not part of the site.
+    RewriteRule ^\.ftp-deploy-sync-state\.json$ - [F]
+
+    RewriteCond %{HTTP_HOST} !^accessity\.gr$ [NC]
+    RewriteRule ^ https://accessity.gr%{REQUEST_URI} [R=301,L]
+
+    # TLS ends at SiteGround's nginx, so redirect only when no signal says https;
+    # one that is missing then can't turn into a redirect loop.
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{ENV:HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+    RewriteRule ^ https://accessity.gr%{REQUEST_URI} [R=301,L]
+</IfModule>
+
 <IfModule mod_headers.c>
     # Revalidate so returning visitors see new posts; no-cache also keeps
     # SiteGround's Dynamic Cache from serving a copy from before the last deploy.
